@@ -40,7 +40,7 @@ public class StatkiController {
             return "register.html";
         }
     }
-    //TODO isValidUser
+
     /*@PostMapping("/login")
     public String loginUser(User user, Model model) {
         if (userService.isValidUser(user)) {
