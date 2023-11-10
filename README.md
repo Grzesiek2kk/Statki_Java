@@ -5,12 +5,12 @@ To jest rezpozytorium zawierające projekt z javy poświwęcony Statystykom Stat
 
 Dane do bazy danych:
 
-Login: Admin
+Login: admin
 
-Haslo: haslo123
+Haslo: admin
 
-komendy do stworzenia użytkownika Admin:
+komendy do stworzenia użytkownika admin:
 
-CREATE USER 'Admin'@'localhost' IDENTIFIED BY 'haslo123';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 
-GRANT ALL PRIVILEGES ON *.* TO 'Admin'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
