@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Formularz rejestracji</title>
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -7,9 +7,9 @@
 <body>
 <nav>
     <ul>
-        <li><a href="/index.html">Home</a></li>
-        <li><a href="/register.html">Rejestracja</a></li>
-        <li><a href="/login.html">Zaloguj</a></li>
+        <li><a th:href="@{/home}">Home</a></li>
+        <li><a th:href="@{/register}">Rejestracja</a></li>
+        <li><a th:href="@{/login}">Zaloguj</a></li>
     </ul>
 </nav>
 <h1>Formularz rejestracji</h1>
