@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<nav>
+  <ul>
+    <li><a href="/home.html">Home</a></li>
+    <li><a href="/register.html">Rejestracja</a></li>
+    <li><a href="/login.html">Zaloguj</a></li>
+  </ul>
+</nav>
+
+<div th:if="${username != null}">
+  <p>Witaj, <span th:text="${username}"></span>!</p>
+</div>
+
+</body>
+</html>

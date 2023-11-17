@@ -4,6 +4,7 @@
     <title>Formularz rejestracji</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+<body>
 <nav>
     <ul>
         <li><a href="/index.html">Home</a></li>
@@ -11,15 +12,14 @@
         <li><a href="/login.html">Zaloguj</a></li>
     </ul>
 </nav>
-<body>
 <h1>Formularz rejestracji</h1>
 <form action="/register" method="POST">
     <label for="username">Nazwa uzytkownika:</label><br>
-    <input type="text" id="username" name="username"><br>
+    <input type="text" id="username" name="username" required><br>
     <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email"><br>
+    <input type="email" id="email" name="email" required><br>
     <label for="password">Haslo:</label><br>
-    <input type="password" id="password" name="password"><br>
+    <input type="password" id="password" name="password" required><br>
     <input type="submit" value="Zarejestruj"><br>
 </form>
 </body>
