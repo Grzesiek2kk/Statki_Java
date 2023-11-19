@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:import="com.example.ships.model.Role"></th:block>
 <head>
     <title>Formularz rejestracji</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
 <nav>
@@ -10,6 +11,12 @@
         <li><a th:href="@{/home}">Home</a></li>
         <li><a th:href="@{/register}">Rejestracja</a></li>
         <li><a th:href="@{/login}">Zaloguj</a></li>
+        <li th:if="${roles != null and roles.contains(T(com.example.ships.model.Role).ADMIN)}">
+            <a th:href="@{/admin}">Panel Administracyjny</a>
+        </li>
+        <li th:if="${session['username'] ne null}">
+            <a th:href="@{/logout}">Wyloguj</a>
+        </li>
     </ul>
 </nav>
 <h1>Formularz rejestracji</h1>

@@ -1,4 +1,4 @@
-package com.example.statki;
+package com.example.ships;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class StatkiApplication {
+public class ShipsApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(StatkiApplication.class, args);
+		SpringApplication.run(ShipsApplication.class, args);
 	}
 }

@@ -1,20 +1,24 @@
-package com.example.statki.service;
+package com.example.ships.service;
 
-import com.example.statki.model.User;
-import com.example.statki.repo.UserRepository;
-import com.example.statki.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import com.example.ships.model.User;
+import com.example.ships.model.Role;
+import com.example.ships.repo.UserRepository;
+import com.example.ships.util.JwtUtil;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService{
+    @Value("${admin.emails}")
+    private String adminEmails;
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
@@ -32,8 +36,9 @@ public class UserService implements UserDetailsService{
         return userRepository.findByEmail(email);
     }
 
-    public void saveUser(User user) {
+    public void saveUser(User user, Set<Role> roles) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(roles);
         userRepository.save(user);
     }
 
@@ -49,5 +54,15 @@ public class UserService implements UserDetailsService{
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
+    }
+
+    public boolean isAdmin(String email) {
+        String[] adminEmailArray = adminEmails.split(",");
+        for (String adminEmail : adminEmailArray) {
+            if (email.equals(adminEmail.trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

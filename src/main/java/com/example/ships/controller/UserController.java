@@ -1,8 +1,9 @@
-package com.example.statki.controller;
+package com.example.ships.controller;
 
-import com.example.statki.service.UserService;
-import com.example.statki.model.User;
-import com.example.statki.util.JwtUtil;
+import com.example.ships.model.Role;
+import com.example.ships.service.UserService;
+import com.example.ships.model.User;
+import com.example.ships.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,35 +12,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.security.Principal;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
-public class StatkiController {
-
-    @Autowired
-    private HttpServletRequest request;
+public class UserController {
     private final UserService userService;
     private final JwtUtil jwtUtil;
 
     @Autowired
-    public StatkiController(UserService userService, JwtUtil jwtUtil) {
+    public UserController(UserService userService, JwtUtil jwtUtil) {
         this.userService = userService;
         this.jwtUtil = jwtUtil;
-    }
-
-    @GetMapping("/")
-    public String index() {
-        return "home";
-    }
-
-    @GetMapping("/home")
-    public String home(Model model, HttpSession session) {
-        String username = (String) session.getAttribute("username");
-        if (username != null) {
-            model.addAttribute("username", username);
-        }
-
-        return "home";
     }
 
     @GetMapping("/login")
@@ -55,7 +41,12 @@ public class StatkiController {
     @PostMapping("/register")
     public String registerUser(User user, Model model) {
         if (userService.isUserEmailUnique(user.getEmail())) {
-            userService.saveUser(user);
+            Set<Role> roles = new HashSet<>();
+            roles.add(Role.USER);
+            if (userService.isAdmin(user.getEmail())) {
+                roles.add(Role.ADMIN);
+            }
+            userService.saveUser(user, roles);
             model.addAttribute("message", "Registration successful!");
             return "redirect:/login";
         } else {
@@ -74,11 +65,22 @@ public class StatkiController {
                 HttpSession session = request.getSession();
                 session.setAttribute("username", loggedInUser.getUsername());
                 session.setAttribute("token", token);
+                session.setAttribute("roles", loggedInUser.getRoles());
 
-                return "redirect:/home";
+                if (loggedInUser.getRoles().contains(Role.ADMIN)) {
+                    return "redirect:/admin";
+                } else {
+                    return "redirect:/home";
+                }
             }
         }
         model.addAttribute("error", "Invalid credentials. Please try again.");
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/home";
     }
 }

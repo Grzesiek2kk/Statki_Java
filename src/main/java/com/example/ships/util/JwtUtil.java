@@ -1,4 +1,4 @@
-package com.example.statki.util;
+package com.example.ships.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

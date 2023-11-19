@@ -1,4 +1,4 @@
-package com.example.statki.config;
+package com.example.ships.config;
 
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;

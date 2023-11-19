@@ -1,6 +1,6 @@
-package com.example.statki.repo;
+package com.example.ships.repo;
 
-import com.example.statki.model.User;
+import com.example.ships.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

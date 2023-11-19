@@ -1,8 +1,11 @@
-package com.example.statki.model;
+package com.example.ships.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
@@ -20,6 +23,11 @@ public class User {
     private String email;
 
     private String password;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
