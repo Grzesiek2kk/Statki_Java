@@ -6,15 +6,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Table(name="ships")
@@ -29,34 +28,46 @@ public class Ship {
     public int id;
 
     @JsonProperty("Kod portu")
-    public String final_port_code;
+    public String finalPortCode;
 
+    @NotNull(message = "Data przybycia statku nie może być pusta")
     @JsonProperty("Data przybycia")
-    public LocalDate arrival_date;
+    public LocalDate arrivalDate;
 
+    @NotNull(message = "Godzina nie może być pusta")
     @JsonProperty("Godzina przybycia")
-    public LocalTime arrival_time;
+    public LocalTime arrivalTime;
 
+    @Size(min = 5, max = 5, message = "Kod portu musi zawierać dokładnie 5 znaków")
+    @Pattern(regexp = "^[A-Z0-9]*$", message = "Kod portu zawiera nieprawidłowe znaki")
+    @NotNull(message = "Kod portu nie może być pusty")
     @JsonProperty("Kod portu, z którego jednostka przypłynęła")
-    public String initial_port_code;
+    public String initialPortCode;
 
+
+    @Size(max = 50, message = "Nazwa statku może zawierać maksymalnie 50 znaków")
+    @NotNull(message = "Nazwa statku nie może być pusta")
+    @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "Nazwa statku zawiera nieprawidłowe statki")
     @JsonProperty("Nazwa statku")
-    public String ship_name;
+    public String shipName;
 
-//    @JsonProperty("Bandera")
-//    public String flag;
-
+    @NotNull(message = "Pojemność brutto nie może być pusta")
     @JsonProperty("Pojemność brutto")
-    public double gross_capacity;
+    public double grossCapacity;
 
+    @NotNull(message = "Dlugosc nie może być pusta")
     @JsonProperty("Długość")
     public double length;
 
+    @NotNull(message = "Nazwa agenta nie może byc pusta")
+    @Size(max = 100, message = "Nazwa agenta nie może przekraczać 100 znaków")
     @JsonProperty("Agent")
     public String agent;
 
-    @JsonProperty("Nabrzeże (miejsce zacumowania")
-    public String mooring_place;
+    @Size(max = 50, message = "Dlugosc nazwy ndabrzeza nie moze przekraczac 50 znakow")
+    @NotNull(message = "Nazwa nadbrzeza nie moze byc pusta")
+    @JsonProperty("Nabrzeże (miejsce zacumowania)")
+    public String mooringPlace;
 
     public Ship() {};
 }

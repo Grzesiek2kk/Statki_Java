@@ -4,50 +4,68 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title>Dodaj przybycie statku do portu w Świnoujściu</title>
 </head>
 <body>
 <h1>Dodaj przybycie statku do portu w Świnoujściu</h1>
-<form method="post" enctype="multipart/form-data" action="/addShip">
-
-    <div>
-        <label for="arrival_date">Data przybycia statku do portu</label>
-        <input type="date" id="arrival_date" name="arrival_date" required>
+<form method="post" enctype="multipart/form-data" action="/addShip" th:object="${newShip}">
+    <div th:if="${successMessage}" class="success-message">
+        <p th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <div th:if="${duplicateArrivalError}">
+        <span class="error" id="error" th:text="${duplicateArrivalError}"></span>
     </div>
 
     <div>
-        <label for="arrival_time">Godzina przybycia statku do portu</label>
-        <input type="time" id="arrival_time" name="arrival_time" required>
+        <label for="arrivalDate">Data przybycia statku do portu</label>
+        <input type="date" id="arrivalDate" name="arrivalDate" required th:field="*{arrivalDate}">
+        <span class="error" th:if="${#fields.hasErrors('arrivalDate')}" th:errors="*{arrivalDate}"></span>
     </div>
 
     <div>
-        <label for="initial_port_code">Kod portu, z którego jednostka przybyła</label>
-        <input type="text" id="initial_port_code" name="initial_port_code" required>
+        <label for="arrivalTime">Godzina przybycia statku do portu</label>
+        <input type="time" id="arrivalTime" name="arrivalTime" required th:field="*{arrivalTime}">
+        <span class="error" th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}"></span>
     </div>
 
     <div>
-        <label for="ship_name">Nazwa statku</label>
-        <input type="text" id="ship_name" name="ship_name" required>
+        <label for="initialPortCode">Kod portu, z którego jednostka przybyła</label>
+        <input type="text" id="initialPortCode" name="initialPortCode" required th:field="*{initialPortCode}">
+        <span class="error" th:if="${#fields.hasErrors('initialPortCode')}" th:errors="*{initialPortCode}"></span>
     </div>
 
     <div>
-        <label for="gross_capacity">Pojemność brutto</label>
-        <input type="number" id="gross_capacity" name="gross_capacity" step="any" min="0" required>
+        <label for="shipName">Nazwa statku</label>
+        <input type="text" id="shipName" name="shipName" required th:field="*{shipName}">
+        <span class="error" th:if="${#fields.hasErrors('shipName')}" th:errors="*{shipName}"></span>
+    </div>
+
+    <div>
+        <label for="grossCapacity">Pojemność brutto</label>
+        <input type="number" id="grossCapacity" name="grossCapacity" step="any" min="0" required th:field="*{grossCapacity}">
+        <span class="error" th:if="${#fields.hasErrors('grossCapacity')}" th:errors="*{grossCapacity}"></span>
     </div>
 
     <div>
         <label for="length">Długość</label>
-        <input type="number" id="length" name="length" step="any" min="0" required>
+        <input type="number" id="length" name="length" step="any" min="0" required th:field="*{length}">
+        <span class="error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}"></span>
     </div>
 
     <div>
         <label for="agent">Agent</label>
-        <input type="text" id="agent" name="agent" required>
+        <input type="text" id="agent" name="agent" required th:field="*{agent}">
+        <span class="error" th:if="${#fields.hasErrors('agent')}" th:errors="*{agent}"></span>
     </div>
 
     <div>
-        <label for="mooring place">Miejsce zacumowania</label>
-        <input type="text" id="mooring place" name="mooring place" required>
+        <label for="mooringPlace">Miejsce zacumowania</label>
+        <input type="text" id="mooringPlace" name="mooringPlace" required th:field="*{mooringPlace}">
+        <span class="error" th:if="${#fields.hasErrors('mooringPlace')}" th:errors="*{mooringPlace}"></span>
     </div>
 
     <div>
