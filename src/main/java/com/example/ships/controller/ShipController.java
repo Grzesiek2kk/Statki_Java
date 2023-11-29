@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Controller
 public class ShipController {
@@ -74,4 +76,13 @@ public class ShipController {
 
         return "addShip";
     }
+
+    @GetMapping("/showArrivalShips")
+    public String showArrivalShips(Model model)
+    {
+        List<Ship> ships = shipService.getAllShips();
+        model.addAttribute("ships", ships);
+        return "showArrivalShips";
+    }
+
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista przypłynięć statków do portu w Świnoujściu</title>
+</head>
+<body>
+    <h1>Lista przypłynięć statków do portu w Świnoujściu</h1>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Nazwa</th>
+                <th>Data przybycia</th>
+                <th>Godzina przybycia</th>
+                <th>Kod portu, z którego statek przypłynął</th>
+                <th>Pojemność</th>
+                <th>Długość</th>
+                <th>Agent</th>
+                <th>Nadbrzeże</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ship : ${ships}">
+                <td th:text="${ship.shipName}"></td>
+                <td th:text="${ship.arrivalDate}"></td>
+                <td th:text="${ship.arrivalTime}"></td>
+                <td th:text="${ship.initialPortCode}"></td>
+                <td th:text="${ship.grossCapacity}"></td>
+                <td th:text="${ship.length}"></td>
+                <td th:text="${ship.agent}"></td>
+                <td th:text="${ship.mooringPlace}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

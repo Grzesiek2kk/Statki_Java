@@ -25,7 +25,6 @@ public class ShipService {
         return !duplicates.isEmpty();
     }
 
-
     public boolean validationDate(LocalDate arrivalDate)
     {
         LocalDate now = LocalDate.now();
@@ -45,5 +44,9 @@ public class ShipService {
         }
 
         return true;
+    }
+
+    public List<Ship> getAllShips() {
+        return shipRepository.findAll();
     }
 }
