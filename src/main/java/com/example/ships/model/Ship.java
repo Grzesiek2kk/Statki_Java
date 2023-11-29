@@ -43,9 +43,15 @@ public class Ship {
 
     @Size(max = 50, message = "Nazwa statku może zawierać maksymalnie 50 znaków")
     @NotNull(message = "Nazwa statku nie może być pusta")
-    @Pattern(regexp = "^[a-zA-Z0-9 ]*$", message = "Nazwa statku zawiera nieprawidłowe statki")
+    @Pattern(regexp = "^[a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ .-]*$", message = "Nazwa statku zawiera nieprawidłowe znaki")
     @JsonProperty("Nazwa statku")
     public String shipName;
+
+    @Size(max = 50, message = "Bandera może zawierać maksymalnie 50 znaków")
+    @NotNull(message = "Bandera nie może być pusta")
+    @Pattern(regexp = "^[A-Z]*$", message = "Bandera zawiera nieprawidłowe znaki")
+    @JsonProperty("Bandera")
+    public String flag;
 
     @NotNull(message = "Pojemność brutto nie może być pusta")
     @JsonProperty("Pojemność brutto")
@@ -57,17 +63,16 @@ public class Ship {
 
     @NotNull(message = "Nazwa agenta nie może byc pusta")
     @Size(max = 100, message = "Nazwa agenta nie może przekraczać 100 znaków")
-    @Pattern(regexp = "^[a-zA-Z0-9 .-]*$", message = "Nazwa statku zawiera nieprawidłowe statki")
+    @Pattern(regexp = "^[a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ .-]*$", message = "Agent zawiera nieprawidłowe znaki")
     @JsonProperty("Agent")
     public String agent;
 
     @Size(max = 50, message = "Dlugosc nazwy ndabrzeza nie moze przekraczac 50 znakow")
     @NotNull(message = "Nazwa nadbrzeza nie moze byc pusta")
-    @Pattern(regexp = "^[a-zA-Z0-9 .-]*$", message = "Nazwa statku zawiera nieprawidłowe statki")
+    @Pattern(regexp = "^[a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ .-]*$", message = "Nadbrzeze zawiera nieprawidłowe znaki")
     @JsonProperty("Nabrzeże (miejsce zacumowania)")
     public String mooringPlace;
 
     public Ship() {};
 }
 
-//dodac bandera
