@@ -12,8 +12,11 @@ import java.util.Set;
 @Controller
 public class HomeController {
     @GetMapping("/")
-    public String index() {
-        return "home";
+    public String index(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        if (username != null) {
+            model.addAttribute("username", username);
+        }return "home";
     }
 
     @GetMapping("/home")

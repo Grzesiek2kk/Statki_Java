@@ -17,7 +17,8 @@ public class ShipService {
     private ShipRepository shipRepository;
 
     @Transactional
-    public void saveShip(Ship newShip) {
+    public void saveShip(Ship newShip)
+    {
         shipRepository.save(newShip);
     }
     public boolean duplicateArrival(String shipName, LocalDate arrivalDate, LocalTime arrivalTime) {

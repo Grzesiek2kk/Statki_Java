@@ -46,6 +46,7 @@ public class UserController {
             if (userService.isAdmin(user.getEmail())) {
                 roles.add(Role.ADMIN);
             }
+            user.setId(null);
             userService.saveUser(user, roles);
             model.addAttribute("message", "Registration successful!");
             return "redirect:/login";
@@ -66,6 +67,7 @@ public class UserController {
                 session.setAttribute("username", loggedInUser.getUsername());
                 session.setAttribute("token", token);
                 session.setAttribute("roles", loggedInUser.getRoles());
+                session.setAttribute("user_id", loggedInUser.getId());
 
                 if (loggedInUser.getRoles().contains(Role.ADMIN)) {
                     return "redirect:/admin";

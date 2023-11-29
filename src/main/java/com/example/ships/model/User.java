@@ -1,10 +1,12 @@
 package com.example.ships.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -25,12 +27,14 @@ public class User {
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
 
-    public User() {
-    }
+    @OneToMany(mappedBy = "user")
+    @Null
+    private List<Ship> ships;
+    public User() {}
 
     public User(String username, String email, String password) {
         this.username = username;

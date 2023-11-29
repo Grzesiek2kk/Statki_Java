@@ -1,8 +1,12 @@
 package com.example.ships.controller;
 
 import com.example.ships.model.Ship;
+import com.example.ships.model.User;
 import com.example.ships.repo.ShipRepository;
 import com.example.ships.service.ShipService;
+import com.example.ships.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,19 +28,35 @@ import java.util.List;
 @Controller
 public class ShipController {
 
-    private final ShipRepository shipRepository;
     private final ShipService shipService;
+    private final ShipRepository shipRepository;
+    private final UserService userService;
 
     @Autowired
-    public ShipController(ShipRepository shipRepository, ShipService shipService) {
-        this.shipRepository = shipRepository;
+    public ShipController(ShipService shipService, ShipRepository shipRepository, UserService userService) {
         this.shipService = shipService;
+        this.shipRepository = shipRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/addShip")
-    public String showAddShipForm(Model model) {
-        model.addAttribute("newShip", new Ship());
-        return "addShip";
+    public String showAddShipForm(Model model, HttpServletRequest request)
+    {
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("user_id");
+
+            User loggedInUser = userService.getUserById(userId);
+            if (loggedInUser != null)
+            {
+                model.addAttribute("newShip", new Ship());
+                System.out.println(userId);
+                return "addShip";
+            }
+            else
+            {
+                model.addAttribute("errorMessage", "Niezalogowany użytkownik nie moze wprowadzać nowych przypłynięć!");
+                return "home";
+            }
     }
 
     @Transactional
@@ -46,8 +66,12 @@ public class ShipController {
             BindingResult bindingResult,
             Model model,
             @RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDateParam,
-            @RequestParam("arrivalTime") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime arrivalTimeParam) {
-
+            @RequestParam("arrivalTime") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime arrivalTimeParam,
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes)
+    {
+        HttpSession session = request.getSession();
+        System.out.println(session.getAttribute("user_id"));
         if (!shipService.validationTimeDependsOnDate(newShip.getArrivalDate(), newShip.getArrivalTime())) {
             bindingResult.rejectValue("arrivalTime", "ship.invalidTime", "Dla wybranej daty ten czas wykracza w przyszłość");
         }
@@ -63,18 +87,20 @@ public class ShipController {
 
         if (shipService.duplicateArrival(newShip.getShipName(), newShip.getArrivalDate(), newShip.getArrivalTime())) {
             model.addAttribute("duplicateArrivalError", "Statek o podanej nazwie, dacie i godzinie już istnieje");
-            return "addShip"; // Return the view without saving the ship
-        }
-
-        try {
-            shipService.saveShip(newShip);
-            model.addAttribute("successMessage", "Statek dodany pomyślnie.");
-        } catch (DataAccessException e) {
-            model.addAttribute("errorMessage", "Wystąpił błąd podczas dodawania statku do bazy danych.");
             return "addShip";
         }
 
-        return "addShip";
+            try {
+                User user = userService.getUserById((Long)session.getAttribute("user_id"));
+                newShip.setUser(user);
+                shipService.saveShip(newShip);
+            } catch (Exception e) {
+                model.addAttribute("errorMessage", "Wystąpił błąd podczas dodawania statku do bazy danych.");
+                return "addShip";
+            }
+
+        redirectAttributes.addFlashAttribute("successMessage", "Statek dodany pomyślnie.");
+        return "redirect:/showArrivalShips";
     }
 
     @GetMapping("/showArrivalShips")

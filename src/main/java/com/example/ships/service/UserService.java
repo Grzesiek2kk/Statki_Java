@@ -4,7 +4,6 @@ import com.example.ships.model.User;
 import com.example.ships.model.Role;
 import com.example.ships.repo.UserRepository;
 import com.example.ships.util.JwtUtil;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -34,6 +34,11 @@ public class UserService implements UserDetailsService{
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User getUserById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElse(null);
     }
 
     public void saveUser(User user, Set<Role> roles) {
@@ -65,4 +70,5 @@ public class UserService implements UserDetailsService{
         }
         return false;
     }
+
 }

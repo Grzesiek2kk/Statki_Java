@@ -2,10 +2,7 @@ package com.example.ships.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -21,7 +18,7 @@ import java.time.LocalTime;
 @JsonIgnoreProperties
 public class Ship {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
 
     @JsonProperty("Kod portu")
@@ -49,7 +46,7 @@ public class Ship {
 
     @Size(max = 50, message = "Bandera może zawierać maksymalnie 50 znaków")
     @NotNull(message = "Bandera nie może być pusta")
-    @Pattern(regexp = "^[A-Z]*$", message = "Bandera zawiera nieprawidłowe znaki")
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "Bandera zawiera nieprawidłowe znaki")
     @JsonProperty("Bandera")
     public String flag;
 
@@ -72,6 +69,9 @@ public class Ship {
     @Pattern(regexp = "^[a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ .-]*$", message = "Nadbrzeze zawiera nieprawidłowe znaki")
     @JsonProperty("Nabrzeże (miejsce zacumowania)")
     public String mooringPlace;
+
+    @ManyToOne
+    private User user;
 
     public Ship() {};
 }

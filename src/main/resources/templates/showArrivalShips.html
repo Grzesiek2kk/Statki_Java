@@ -7,6 +7,14 @@
 <body>
     <h1>Lista przypłynięć statków do portu w Świnoujściu</h1>
     <div>
+        <div th:if="${successMessage}" class="success-message">
+            <p th:text="${successMessage}"></p>
+        </div>
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+    </div>
+    <div>
         <table>
             <thead>
             <tr>
