@@ -33,8 +33,11 @@
     <form action="/login" method="POST">
         <label for="email">Email:</label><br>
         <input type="email" id="email" name="email"><br>
-        <label for="password">Haslo:</label><br>
+        <label for="password">Hasło:</label><br>
         <input type="password" id="password" name="password"><br>
+        <div th:if="${error}" class="error">
+            <p th:text="${error}"></p>
+        </div>
         <input type="submit" value="Zaloguj"><br>
     </form>
 </div>

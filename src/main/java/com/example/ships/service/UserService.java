@@ -80,4 +80,9 @@ public class UserService implements UserDetailsService{
         return false;
     }
 
+    public boolean isPasswordValid(String password) {
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        return password.matches(regex);
+    }
+
 }
