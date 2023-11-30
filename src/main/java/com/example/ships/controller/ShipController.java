@@ -15,15 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ShipController {
@@ -111,14 +109,59 @@ public class ShipController {
     {
         String username = (String) session.getAttribute("username");
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        Long userId = (Long) session.getAttribute("user_id");
         if (username != null) {
             model.addAttribute("username", username);
             model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("userId", userId);
         }
 
         List<Ship> ships = shipService.getAllShips();
         model.addAttribute("ships", ships);
         return "showArrivalShips";
+    }
+
+    @GetMapping("/showArrivalShips/{id}")
+    public String shipDetails(@PathVariable Long id, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        Long userId = (Long) session.getAttribute("user_id");
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("userId", userId);
+        }
+
+        Optional<Ship> optionalShip = shipRepository.findById(id);
+
+        if (optionalShip.isPresent()) {
+            Ship ship = optionalShip.get();
+            model.addAttribute("ship", ship);
+        }
+        else
+        {
+            model.addAttribute("errorMessage", "Wybrany statek nie istnieje");
+        }
+        return "viewShip";
+    }
+
+    @Transactional
+    @GetMapping("/deleteShip/{id}")
+    public String deleteShip(@PathVariable Long id, Model model, HttpSession session, RedirectAttributes redirectAttributes)
+    {
+        Optional<Ship> ship = shipRepository.findById(id);
+
+        if(ship.isPresent())
+        {
+            Ship toDelete = ship.get();
+            shipRepository.delete(toDelete);
+            redirectAttributes.addFlashAttribute("successMessage", "Statek został usunięty");
+        }
+        else
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "Wybrany statek nie istnieje");
+        }
+        return "redirect:/showArrivalShips";
     }
 
 }

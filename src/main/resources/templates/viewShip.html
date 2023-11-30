@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Szczegóły statku: ${ship.shipName} </title>
+    <title>Szczegóły statku</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <body>
 <nav>
@@ -29,16 +30,21 @@
     </div>
 </nav>
 <div class="container">
-    <h1>Szczegóły dodanego statku</h1>
-    <p>Nazwa: ${ship.shipName}</p>
-    <p>Bandera: ${ship.flag}</p>
-    <p>Kod portu z którego statek przypłynął: ${ship.initial_port_code}</p>
-    <p>Data przybycia: ${ship.arrival_date}</p>
-    <p>Godzina przybycia: ${ship.arrival_time}</p>
-    <p>Pojemność brutto: ${ship.gross_capacity}</p>
-    <p>Nadbrzeże: ${ship.mooringPlace}</p>
-    <p>Długość: ${ship.length}</p>
-    <p>Agent: ${ship.agent}</p>
+    <h1>Szczegóły przypłynięcia statku do portu</h1>
+    <p>ID: <span th:text="${ship.id}"></span></p>
+    <p>Nazwa: <span th:text="${ship.shipName}"></span></p>
+    <p>Data przybycia: <span th:text="${ship.arrivalDate}"></span></p>
+    <p>Godzina przybycia: <span th:text="${ship.arrivalTime}"></span></p>
+    <p>Kod portu, z którego przypłynął: <span th:text="${ship.initialPortCode}"></span></p>
+    <p>Bandera: <span th:text="${ship.flag}"></span></p>
+    <p>Pojemoność brutto: <span th:text="${ship.grossCapacity}"></span></p>
+    <p>Długość: <span th:text="${ship.length}"></span></p>
+    <p>Agent: <span th:text="${ship.agent}"></span></p>
+    <p>Nadbrzeże: <span th:text="${ship.mooringPlace}"></span></p>
+
+    <div th:if="${ship.user.getId() eq userId}">
+        nalezy do Ciebie
+    </div>
 </div>
 </body>
 </html>
