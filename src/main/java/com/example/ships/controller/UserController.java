@@ -38,6 +38,7 @@ public class UserController {
         return "register";
     }
 
+
     @PostMapping("/register")
     public String registerUser(User user, Model model) {
         if (userService.isUserEmailUnique(user.getEmail())) {
@@ -63,16 +64,18 @@ public class UserController {
             if (loggedInUser != null) {
                 String token = jwtUtil.generateToken(loggedInUser.getEmail());
 
+                Boolean isAdmin = userService.isAdminRole(loggedInUser.getRoles());
+                System.out.println(isAdmin);
                 HttpSession session = request.getSession();
                 session.setAttribute("username", loggedInUser.getUsername());
                 session.setAttribute("token", token);
-                session.setAttribute("roles", loggedInUser.getRoles());
                 session.setAttribute("user_id", loggedInUser.getId());
 
-                if (loggedInUser.getRoles().contains(Role.ADMIN)) {
+                if (isAdmin) {
+                    session.setAttribute("isAdmin", true);
                     return "redirect:/admin";
                 } else {
-                    return "redirect:/home";
+                    return "redirect:/";
                 }
             }
         }
@@ -83,6 +86,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/home";
+        return "redirect:/";
     }
+
 }

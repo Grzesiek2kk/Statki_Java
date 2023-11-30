@@ -44,7 +44,10 @@ public class ShipController {
     {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("user_id");
-
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        model.addAttribute("isAdmin", isAdmin);
+        model.addAttribute("username", username);
             User loggedInUser = userService.getUserById(userId);
             if (loggedInUser != null)
             {
@@ -104,8 +107,15 @@ public class ShipController {
     }
 
     @GetMapping("/showArrivalShips")
-    public String showArrivalShips(Model model)
+    public String showArrivalShips(Model model, HttpSession session)
     {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+        }
+
         List<Ship> ships = shipService.getAllShips();
         model.addAttribute("ships", ships);
         return "showArrivalShips";

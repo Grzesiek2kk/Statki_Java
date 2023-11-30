@@ -47,7 +47,9 @@ public class ShipService {
         return true;
     }
 
-    public List<Ship> getAllShips() {
+    public List<Ship> getAllShips()
+    {
+
         return shipRepository.findAll();
     }
 }

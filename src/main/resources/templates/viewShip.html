@@ -2,17 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Szczegóły statku: ${ship.shipName} </title>
 </head>
 <body>
-<h1>Szczegóły dodanego statku</h1>
+<nav>
+    <a th:href="@{/}"><span class="home">Home</span></a>
+    <div th:if="${session['username'] != null}" class="welcome-message">
+        <div class="user-dropdown">
+            <span th:text="'Witaj ' + ${username} + '!'"></span>
+            <div class="dropdown-content">
+                <a th:href="@{/logout}">Wyloguj</a>
+                <a th:href="@{/profile}">Profil</a>
+                <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
+            </div>
+        </div>
+    </div>
 
-        <p>Kod portu: ${ship.final_port_code}</p>
-        <p>Data przybycia: ${ship.arrival_date}</p>
-        <p>Godzina przybycia: ${ship.arrival_time}</p>
-        <p>Pojemność brutto: ${ship.gross_capacity}</p>
-        <p>Długość: ${ship.length}</p>
-        <p>Agent: ${ship.agent}</p>
-
+    <div th:if="${session['username'] == null}" class="welcome-message">
+        <div class="user-dropdown">
+            <span th:text="Gość"></span>
+            <div class="dropdown-content">
+                <a th:href="@{/register}">Rejestracja</a>
+                <a th:href="@{/login}">Zaloguj</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1>Szczegóły dodanego statku</h1>
+    <p>Nazwa: ${ship.shipName}</p>
+    <p>Bandera: ${ship.flag}</p>
+    <p>Kod portu z którego statek przypłynął: ${ship.initial_port_code}</p>
+    <p>Data przybycia: ${ship.arrival_date}</p>
+    <p>Godzina przybycia: ${ship.arrival_time}</p>
+    <p>Pojemność brutto: ${ship.gross_capacity}</p>
+    <p>Nadbrzeże: ${ship.mooringPlace}</p>
+    <p>Długość: ${ship.length}</p>
+    <p>Agent: ${ship.agent}</p>
+</div>
 </body>
 </html>

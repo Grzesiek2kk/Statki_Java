@@ -71,4 +71,13 @@ public class UserService implements UserDetailsService{
         return false;
     }
 
+    public boolean isAdminRole(Set <Role> role)
+    {
+        if(role.contains(Role.ADMIN))
+        {
+            return true;
+        }
+        return false;
+    }
+
 }
