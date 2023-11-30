@@ -25,6 +25,18 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("/home2")
+    public String index2(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        System.out.println("czy admin w /home " + isAdmin);
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+        }
+        return "home_v2";
+    }
+
     @GetMapping("/admin")
     public String admin(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
