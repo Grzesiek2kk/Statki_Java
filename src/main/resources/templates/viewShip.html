@@ -42,7 +42,7 @@
     <p>Agent: <span th:text="${ship.agent}"></span></p>
     <p>Nadbrzeże: <span th:text="${ship.mooringPlace}"></span></p>
 
-    <div th:if="${ship.user.getId() eq userId}">
+    <div th:if="${ship.user.getId() eq userId or isAdmin eq true}">
         <a th:href="@{'/deleteShip/' + ${ship.id}}"><button>Usuń</button></a>
         <a th:href="@{'/editShip/' + ${ship.id}}"><button>Edytuj</button></a>
     </div>
