@@ -1,7 +1,7 @@
 package com.example.ships.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +25,9 @@ public class User {
     private String email;
 
     private String password;
+
+    @Transient
+    private String confirmPassword;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))

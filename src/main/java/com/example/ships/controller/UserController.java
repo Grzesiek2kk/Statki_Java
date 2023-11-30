@@ -6,12 +6,14 @@ import com.example.ships.model.User;
 import com.example.ships.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -34,13 +36,33 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showRegistrationForm() {
+    public String showRegistrationForm(Model model)
+    {
+        model.addAttribute("user", new User());
         return "register";
     }
 
 
     @PostMapping("/register")
-    public String registerUser(User user, Model model) {
+    public String registerUser(@Valid User user, BindingResult bindingResult, @RequestParam String confirmPassword, Model model) {
+        if (user.getUsername().length() < 4) {
+            bindingResult.rejectValue("username", "error.username", "Nazwa użytkownika powinna mieć conajmniej 4 znaki");
+        }
+
+        if (!user.getPassword().equals(confirmPassword)) {
+            bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "Podane hasła nie są zgodne.");
+        }
+
+        if (!userService.isPasswordValid(user.getPassword())) {
+            bindingResult.rejectValue("password", "error.password", "Hasło musi mieć conajmniej 8 znaków, w tym 1 cyfrę, 1 dużą liczbę i 1 znak specjalny");
+        }
+        if (!userService.isUserEmailUnique(user.getEmail())) {
+            bindingResult.rejectValue("email", "error.email", "Użytkownik o tym mailu już istnieje. Podaj inny email.");
+        }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            return "register";
+        }
         if (userService.isUserEmailUnique(user.getEmail())) {
             Set<Role> roles = new HashSet<>();
             roles.add(Role.USER);
@@ -79,7 +101,7 @@ public class UserController {
                 }
             }
         }
-        model.addAttribute("error", "Invalid credentials. Please try again.");
+        model.addAttribute("error", "Nieprawidłowe dane logowania.");
         return "login";
     }
 
