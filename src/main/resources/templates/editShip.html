@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-    <title>Dodaj przybycie statku do portu w Świnoujściu</title>
+    <title>Edycja przybycia statku do portu</title>
 </head>
 <body>
 <nav>
@@ -30,22 +28,19 @@
             </div>
         </div>
     </div>
-
 </nav>
-
 <div class="container">
-    <h1>Dodaj przybycie statku do portu w Świnoujściu</h1>
-    <form method="post" enctype="multipart/form-data" action="/addShip" th:object="${newShip}">
-        <div th:if="${successMessage}" class="success-message">
-            <p th:text="${successMessage}"></p>
-        </div>
-        <div th:if="${errorMessage}" class="error-message">
-            <p th:text="${errorMessage}"></p>
-        </div>
+    <h1>Edycja przybycia statku do portu</h1>
+    <div th:if="${successMessage}" class="success-message">
+        <p th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <form method="post" enctype="multipart/form-data" th:action="@{'/editShip/' + ${ship.id}}" th:object="${ship}">
         <div th:if="${duplicateArrivalError}">
             <span class="error" id="error" th:text="${duplicateArrivalError}"></span>
         </div>
-
         <div>
             <label for="arrivalDate">Data przybycia statku do portu</label>
             <input type="date" id="arrivalDate" name="arrivalDate" required th:value="*{arrivalDate}">
@@ -101,7 +96,7 @@
         </div>
 
         <div>
-            <button type="submit">Dodaj</button>
+            <button type="submit">Zapisz zmiany</button>
             <button type="reset">Resetuj</button>
         </div>
     </form>

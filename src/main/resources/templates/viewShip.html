@@ -43,7 +43,8 @@
     <p>Nadbrzeże: <span th:text="${ship.mooringPlace}"></span></p>
 
     <div th:if="${ship.user.getId() eq userId}">
-        nalezy do Ciebie
+        <a th:href="@{'/deleteShip/' + ${ship.id}}"><button>Usuń</button></a>
+        <a th:href="@{'/editShip/' + ${ship.id}}"><button>Edytuj</button></a>
     </div>
 </div>
 </body>

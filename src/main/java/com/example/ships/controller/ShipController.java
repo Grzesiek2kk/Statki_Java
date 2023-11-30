@@ -164,4 +164,81 @@ public class ShipController {
         return "redirect:/showArrivalShips";
     }
 
+    @GetMapping("/editShip/{id}")
+    public String editShipForm(@PathVariable Long id, Model model, HttpSession session, RedirectAttributes redirectAttributes)
+    {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        Long userId = (Long) session.getAttribute("user_id");
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("userId", userId);
+        }
+        Optional <Ship> ship = shipRepository.findById(id);
+        if(ship.isPresent())
+        {
+            Ship editShip = ship.get();
+            model.addAttribute("ship", editShip);
+            return "editShip";
+        }
+        redirectAttributes.addFlashAttribute("errorMessage", "Wybrany statek nie istnieje");
+        return "redirect:/showArrivalShips";
+    }
+
+    @Transactional
+    @PostMapping("/editShip/{id}")
+    public String deletShip(@Valid @ModelAttribute("ship") Ship ship,
+                            BindingResult bindingResult,
+                            Model model,
+                            @PathVariable Long id,
+                            @RequestParam("arrivalDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalDateParam,
+                            @RequestParam("arrivalTime") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime arrivalTimeParam,
+                            HttpServletRequest request,
+                            RedirectAttributes redirectAttributes)
+    {
+        HttpSession session = request.getSession();
+
+        if (!shipService.validationTimeDependsOnDate(ship.getArrivalDate(), ship.getArrivalTime())) {
+            bindingResult.rejectValue("arrivalTime", "ship.invalidTime", "Dla wybranej daty ten czas wykracza w przyszłość");
+        }
+
+        if (!shipService.validationDate(ship.getArrivalDate())) {
+            bindingResult.rejectValue("arrivalDate", "ship.invalidDate", "Wybrana data jest z przyszłości");
+        }
+
+        if (bindingResult.hasErrors()) {
+            model.addAllAttributes(bindingResult.getModel());
+            return "editShip";
+        }
+
+        if (shipService.duplicateArrivalEdit(id,ship.getShipName(), ship.getArrivalDate(), ship.getArrivalTime())) {
+            model.addAttribute("duplicateArrivalError", "Statek o podanej nazwie, dacie i godzinie już istnieje");
+            return "editShip";
+        }
+
+        try {
+            Optional<Ship> tempShip = shipRepository.findById(id);
+            if(tempShip.isPresent())
+            {
+                Ship existingShip = tempShip.get();
+                existingShip.setId(id);
+                existingShip.setShipName(ship.getShipName());
+                existingShip.setArrivalDate(ship.getArrivalDate());
+                existingShip.setArrivalTime(ship.getArrivalTime());
+                existingShip.setFinalPortCode(ship.getFinalPortCode());
+                existingShip.setFlag(ship.getFlag());
+                existingShip.setAgent(ship.getAgent());
+                existingShip.setMooringPlace(ship.getMooringPlace());
+                shipRepository.save(existingShip);
+            }
+
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Wystąpił błąd podczas dodawania statku do bazy danych.");
+            return "editShip";
+        }
+
+        redirectAttributes.addFlashAttribute("successMessage", "Przypłyięcie statku do portu zostało pomyślnie zaktualizowane.");
+        return "redirect:/showArrivalShips";
+    }
 }

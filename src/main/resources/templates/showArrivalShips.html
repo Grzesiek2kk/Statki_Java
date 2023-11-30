@@ -63,7 +63,7 @@
                 <td><a th:href="@{'/showArrivalShips/' + ${ship.id}}"><button>Szczegóły</button></a></td>
                 <td th:if="${ship.user.getId() eq userId or isAdmin eq true}">
                     <a th:href="@{'/deleteShip/' + ${ship.id}}"><button>Usuń</button></a>
-                    <a th:href="@{'/showArrivalShips/' + ${ship.id}}"><button>Edytuj</button></a>
+                    <a th:href="@{'/editShip/' + ${ship.id}}"><button>Edytuj</button></a>
                 </td>
             </tr>
             </tbody>

@@ -19,7 +19,7 @@ import java.time.LocalTime;
 public class Ship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+    public Long id;
 
     @JsonProperty("Kod portu")
     private String finalPortCode = "PLSWI";

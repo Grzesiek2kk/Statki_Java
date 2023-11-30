@@ -26,6 +26,20 @@ public class ShipService {
         return !duplicates.isEmpty();
     }
 
+    public boolean duplicateArrivalEdit(Long id, String shipName, LocalDate arrivalDate, LocalTime arrivalTime)
+    {
+        List<Ship> duplicates = shipRepository.findByShipNameAndArrivalDateAndArrivalTime(shipName, arrivalDate, arrivalTime);
+
+        for (Ship s : duplicates) {
+            if (s.id.equals(id)) {
+                continue;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean validationDate(LocalDate arrivalDate)
     {
         LocalDate now = LocalDate.now();
@@ -43,13 +57,11 @@ public class ShipService {
         if (arrivalDate.isEqual(now)) {
             return !arrivalTime.isAfter(nowT);
         }
-
         return true;
     }
 
     public List<Ship> getAllShips()
     {
-
         return shipRepository.findAll();
     }
 }
