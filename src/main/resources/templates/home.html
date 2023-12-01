@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <th:block th:import="com.example.ships.model.Role"></th:block>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
   <script th:inline="javascript">
     /*<![CDATA[*/
     /*]]>*/
@@ -16,6 +16,7 @@
 
 <nav>
   <a th:href="@{/}"><span class="home">Home</span></a>
+  <a th:href="@{/home2}"><span class="home">Home v2</span></a>
   <div th:if="${session['username'] != null}" class="welcome-message">
     <div class="user-dropdown">
       <span th:text="'Witaj ' + ${username} + '!'"></span>
@@ -58,6 +59,10 @@
       <button>Wyswietl przypłynięcia statków do portu w Świnoujściu</button>
     </a>
   </div>
+</div>
+
+<div class="container">
+  <img th:src="@{/img/logo.png}" alt="logo">
 </div>
 
 </body>
