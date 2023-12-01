@@ -17,6 +17,7 @@
 <nav>
   <a th:href="@{/}"><span class="home">Home</span></a>
   <a th:href="@{/home2}"><span class="home">Home v2</span></a>
+  <a th:href="@{/test}"><span class="home">Test Site</span></a>
   <div th:if="${session['username'] != null}" class="welcome-message">
     <div class="user-dropdown">
       <span th:text="'Witaj ' + ${username} + '!'"></span>
