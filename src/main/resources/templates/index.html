@@ -17,22 +17,174 @@
 <body>
 <script th:src="@{/js/bootstrap.bundle.js}"></script>
 
-<div class="container-md border">
-    <div class="align-content-center">
-        Here comes the content
-    </div>
-</div>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2a5470;">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/test}">
+                <img th:src="@{/img/logo_v3-2.png}" alt="logo" width="50" height="50" class="d-inline-block align-text-middle">
+                Port Świnoujście
+            </a>
 
-<div class="container-md border">
-    <div class="row">
-        <div class="col border">
-            Here comes the content
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/test}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/}">Old Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/show_all_ships}">Statki_New</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/showArrivalShips}">Statki_Old</a>
+                    </li>
+                </ul>
+
+                <div th:if="${session['username'] != null}">
+                    <div class="btn-group">
+                        <div class="btn-group dropstart" role="group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropstart</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <a class="dropdown-item" th:href="@{/profile}">Profil</a>
+                                <a class="dropdown-item" th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
+                                <a class="dropdown-item" th:href="@{/logout}">Wyloguj</a>
+                            </ul>
+                        </div>
+                        <a th:href="@{/profile}" class="btn btn-secondary" role="button" th:text="'Witaj ' + ${username} + '!'"></a>
+                    </div>
+                </div>
+                <div th:if="${session['username'] == null}">
+                    <div class="btn-group">
+                        <div class="btn-group dropstart" role="group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="visually-hidden">Toggle Dropstart</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <a class="dropdown-item" th:href="@{/register}">Rejestracja</a>
+                                <a class="dropdown-item" th:href="@{/login}">Zaloguj</a>
+                            </ul>
+                        </div>
+                        <a th:href="@{/login}" class="btn btn-secondary" role="button" th:text="'Nie zalogowano'"></a>
+                    </div>
+                </div>
+
+<!--                <div th:if="${session['username'] == null}">-->
+<!--                    <div class="user-dropdown">-->
+<!--                        <span th:text="Gość"></span>-->
+<!--                        <div class="dropdown-content">-->
+<!--                            <a class="dropdown-item" th:href="@{/register}">Rejestracja</a>-->
+<!--                            <a class="dropdown-item" th:href="@{/login}">Zaloguj</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <span class="navbar-text px-2">-->
+<!--                    Witaj {name here} !-->
+<!--                </span>-->
+
+<!--                <div class="btn-group dropstart">-->
+<!--                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">-->
+<!--                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>-->
+<!--                        </svg>-->
+<!--                    </button>-->
+<!--                    <ul class="dropdown-menu">-->
+<!--                        <li><a class="dropdown-item" href="#">Regular link</a></li>-->
+<!--                        <li><a class="dropdown-item disabled" href="#" tabindex="-1" aria-disabled="true">Disabled link</a></li>-->
+<!--                        <li><a class="dropdown-item" href="#">Another link</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+
+            </div>
         </div>
-        <div class="col border">
+    </nav>
+</header>
+
+<main style="padding: 10px">
+    <div class="container-md border px-5">
+        <div class="align-content-center">
             Here comes the content
         </div>
     </div>
-</div>
+
+    <div class="container-md border px-5">
+        <div class="row">
+            <div class="col border">
+                Here comes the content
+            </div>
+            <div class="col border">
+                Here comes the content
+            </div>
+        </div>
+    </div>
+
+    <div class="container-md border px-5">
+        <div class="row">
+            <div class="col-4">
+                <div class="card" style="background-color: #6fabd9; height: fit-content">
+                    <img th:src="@{/img/logo_v2.png}" class="card-img-top" width="128" alt="logo">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card" style="background-color: #6fabd9;  height: fit-content">
+                    <div class="card-header">
+                        Featured
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card" style="background-color: #6fabd9; height: fit-content">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!--<div class="container-fluid" style="color-scheme: dark">-->
+<!--    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">-->
+<!--        <p class="col-md-4 mb-0 text-muted">© 2021 Company, Inc</p>-->
+
+<!--        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">-->
+<!--            <img th:src="@{/img/logo_v2.png}" alt="logo" width="30" height="30" class="d-inline-block align-text-middle">-->
+<!--        </a>-->
+
+<!--        <ul class="nav col-md-4 justify-content-end">-->
+<!--            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>-->
+<!--        </ul>-->
+<!--    </footer>-->
+<!--</div>-->
+
+<footer class="footer mt-auto py-3" style="background-color: #2a5470" >
+    <div class="container">
+        <span class="text-light">Place sticky footer content here.</span>
+    </div>
+</footer>
 
 </body>
 </html>

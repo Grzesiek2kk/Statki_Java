@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Statki</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+
+<body>
+  <script th:src="@{/js/bootstrap.bundle.js}"></script>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2a5470;">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/test}">
+          <img th:src="@{/img/logo_v3-2.png}" alt="logo" width="50" height="50" class="d-inline-block align-text-middle">
+          Port Świnoujście
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container">
+      <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+          <th>Identyfikator</th>
+          <th>Nazwa</th>
+          <th>Bandera</th>
+          <th>Data przybycia</th>
+          <th>Godzina przybycia</th>
+          <th>Nadbrzeże</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ship : ${ships}">
+          <td th:text="${ship.id}"></td>
+          <td th:text="${ship.shipName}"></td>
+          <td th:text="${ship.flag}"></td>
+          <td th:text="${ship.arrivalDate}"></td>
+          <td th:text="${ship.arrivalTime}"></td>
+          <td th:text="${ship.mooringPlace}"></td>
+          <td>
+            <div th:if="${ship.user.getId() eq userId or isAdmin eq true}" class="btn-group">
+              <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-primary">Szczegóły</a>
+              <a th:href="@{'/deleteShip/' + ${ship.id}}" class="btn btn-danger">Usuń</a>
+              <a th:href="@{'/editShip/' + ${ship.id}}" class="btn btn-success">Edytuj</a>
+            </div>
+            <div th:if="${ship.user.getId() ne userId and isAdmin ne true}" class="btn-group">
+              <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-primary">Szczegóły</a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+
+  </footer>
+
+</body>
+</html>

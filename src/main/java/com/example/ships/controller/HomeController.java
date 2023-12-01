@@ -49,6 +49,18 @@ public class HomeController {
         return "home_v2";
     }
 
+    @GetMapping("/profile")
+    public String profile(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        System.out.println("czy admin w /home " + isAdmin);
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+        }
+        return "userProfile";
+    }
+
     @GetMapping("/admin")
     public String admin(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");

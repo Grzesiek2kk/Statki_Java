@@ -121,6 +121,23 @@ public class ShipController {
         return "showArrivalShips";
     }
 
+    @GetMapping("/show_all_ships")
+    public String show_all_ships(Model model, HttpSession session)
+    {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        Long userId = (Long) session.getAttribute("user_id");
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("userId", userId);
+        }
+
+        List<Ship> ships = shipService.getAllShips();
+        model.addAttribute("ships", ships);
+        return "show_all_ships";
+    }
+
     @GetMapping("/showArrivalShips/{id}")
     public String shipDetails(@PathVariable Long id, Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
