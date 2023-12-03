@@ -3,49 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Szczegóły statku</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 </head>
+
 <body>
-<nav>
-    <a th:href="@{/}"><span class="home">Home</span></a>
-    <div th:if="${session['username'] != null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="'Witaj ' + ${username} + '!'"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/logout}">Wyloguj</a>
-                <a th:href="@{/profile}">Profil</a>
-                <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
+
+    <header>
+        <div th:replace="~{/components/navbar::nav}"></div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Szczegóły przypłynięcia statku do portu</h1>
+
+            <p>ID: <span th:text="${ship.id}"></span></p>
+            <p>Nazwa: <span th:text="${ship.shipName}"></span></p>
+            <p>Data przybycia: <span th:text="${ship.arrivalDate}"></span></p>
+            <p>Godzina przybycia: <span th:text="${ship.arrivalTime}"></span></p>
+            <p>Kod portu, z którego przypłynął: <span th:text="${ship.initialPortCode}"></span></p>
+            <p>Bandera: <span th:text="${ship.flag}"></span></p>
+            <p>Pojemoność brutto: <span th:text="${ship.grossCapacity}"></span></p>
+            <p>Długość: <span th:text="${ship.length}"></span></p>
+            <p>Agent: <span th:text="${ship.agent}"></span></p>
+            <p>Nadbrzeże: <span th:text="${ship.mooringPlace}"></span></p>
+
+            <div th:if="${ship.user.getId() eq userId or isAdmin eq true}">
+                <a th:href="@{'/deleteShip/' + ${ship.id}}"><button>Usuń</button></a>
+                <a th:href="@{'/editShip/' + ${ship.id}}"><button>Edytuj</button></a>
             </div>
         </div>
-    </div>
+    </main>
 
-    <div th:if="${session['username'] == null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="Gość"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/register}">Rejestracja</a>
-                <a th:href="@{/login}">Zaloguj</a>
-            </div>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <h1>Szczegóły przypłynięcia statku do portu</h1>
-    <p>ID: <span th:text="${ship.id}"></span></p>
-    <p>Nazwa: <span th:text="${ship.shipName}"></span></p>
-    <p>Data przybycia: <span th:text="${ship.arrivalDate}"></span></p>
-    <p>Godzina przybycia: <span th:text="${ship.arrivalTime}"></span></p>
-    <p>Kod portu, z którego przypłynął: <span th:text="${ship.initialPortCode}"></span></p>
-    <p>Bandera: <span th:text="${ship.flag}"></span></p>
-    <p>Pojemoność brutto: <span th:text="${ship.grossCapacity}"></span></p>
-    <p>Długość: <span th:text="${ship.length}"></span></p>
-    <p>Agent: <span th:text="${ship.agent}"></span></p>
-    <p>Nadbrzeże: <span th:text="${ship.mooringPlace}"></span></p>
-
-    <div th:if="${ship.user.getId() eq userId or isAdmin eq true}">
-        <a th:href="@{'/deleteShip/' + ${ship.id}}"><button>Usuń</button></a>
-        <a th:href="@{'/editShip/' + ${ship.id}}"><button>Edytuj</button></a>
-    </div>
-</div>
+    <footer>
+        <div th:replace="~{/components/footer::ft}"></div>
+    </footer>
 </body>
 </html>

@@ -2,9 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+
     <title>Title</title>
 </head>
 <body>
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
 
+    <header>
+        <div th:replace="~{/components/navbar::nav}"></div>
+    </header>
+
+    <main>
+        <div class="container">
+            Content Goes Here
+        </div>
+    </main>
+
+    <footer>
+        <div th:replace="~{/components/footer::ft}"></div>
+    </footer>
 </body>
 </html>

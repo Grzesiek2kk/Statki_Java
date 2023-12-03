@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<th:block th:import="com.example.ships.model.Role"></th:block>
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+
+<body>
+  <script th:src="@{/js/bootstrap.bundle.js}"></script>
+  <header>
+    <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark" style="background-color: #2a5470;">
+      <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/test}">
+          <img th:src="@{/img/logo_v3-2.png}" alt="logo" width="50" height="50" class="d-inline-block align-text-middle">
+          Port Świnoujście
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" th:href="@{/test}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" th:href="@{/}">Old Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" th:href="@{/show_all_ships}">Statki_New</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" th:href="@{/showArrivalShips}">Statki_Old</a>
+            </li>
+          </ul>
+
+          <div th:if="${session['username'] != null}">
+            <div class="btn-group">
+              <div class="btn-group dropstart" role="group">
+                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="visually-hidden">Toggle Dropstart</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <a class="dropdown-item" th:href="@{/profile}">Profil</a>
+                  <a class="dropdown-item" th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
+                  <a class="dropdown-item" th:href="@{/logout}">Wyloguj</a>
+                </ul>
+              </div>
+              <a th:href="@{/profile}" class="btn btn-secondary" role="button" th:text="'Witaj ' + ${username} + '!'"></a>
+            </div>
+          </div>
+          <div th:if="${session['username'] == null}">
+            <div class="btn-group">
+              <div class="btn-group dropstart" role="group">
+                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="visually-hidden">Toggle Dropstart</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <a class="dropdown-item" th:href="@{/register}">Rejestracja</a>
+                  <a class="dropdown-item" th:href="@{/login}">Zaloguj</a>
+                </ul>
+              </div>
+              <a th:href="@{/login}" class="btn btn-secondary" role="button" th:text="'Nie zalogowano'"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+</body>
+</html>

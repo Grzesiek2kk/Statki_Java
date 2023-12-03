@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<th:block th:import="com.example.ships.model.Role"></th:block>
+<head>
+    <meta charset="UTF-8">
+    <title>Footer</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
+    <footer th:fragment="ft" class="footer mt-auto py-3" style="background-color: #2a5470" >
+        <div class="container">
+            <span class="text-light">Place sticky footer content here.</span>
+        </div>
+    </footer>
+</body>
+</html>

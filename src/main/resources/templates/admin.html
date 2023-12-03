@@ -5,38 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">-->
+
     <title>Panel Administracyjny</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-<nav>
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
 
-    <a th:href="@{/}"><span class="home">Home</span></a>
-    <div th:if="${session['username'] != null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="'Witaj ' + ${username} + '!'"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/logout}">Wyloguj</a>
-                <a th:href="@{/profile}">Profil</a>
-                <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
-            </div>
+    <header>
+        <div th:replace="~{/components/navbar::nav}"></div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Panel Administracyjny</h2>
         </div>
-    </div>
+    </main>
 
-    <div th:if="${session['username'] == null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="Gość"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/register}">Rejestracja</a>
-                <a th:href="@{/login}">Zaloguj</a>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<div class="container">
-    <h2>Panel Administracyjny</h2>
-</div>
-
+    <footer>
+        <div th:replace="~{/components/footer::ft}"></div>
+    </footer>
 </body>
 </html>

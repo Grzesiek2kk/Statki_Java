@@ -3,46 +3,40 @@
 <th:block th:import="com.example.ships.model.Role"></th:block>
 <head>
     <title>Formularz rejestracji</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
 </head>
 <body>
-<nav>
-    <a th:href="@{/}"><span class="home">Home</span></a>
-    <div th:if="${session['username'] != null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="'Witaj ' + ${username} + '!'"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/logout}">Wyloguj</a>
-                <a th:href="@{/profile}">Profil</a>
-                <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
-            </div>
-        </div>
-    </div>
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
 
-    <div th:if="${session['username'] == null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="Gość"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/login}">Zaloguj</a>
-            </div>
+    <header>
+        <div th:replace="~{/components/navbar::nav}"></div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Formularz rejestracji</h1>
+                <form action="/register" method="POST" th:object="${user}">
+                    <label for="username">Nazwa użytkownika:</label><br>
+                    <input type="text" id="username" name="username" th:field="*{username}" required th:value="${user.username}"><br>
+                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" th:field="*{email}" required th:value="${user.email}"><br>
+                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+                    <label for="password">Hasło:</label><br>
+                    <input type="password" id="password" name="password" th:field="*{password}" required><br>
+                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
+                    <label for="confirmPassword">Powtórz hasło:</label><br>
+                    <input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" required><br>
+                    <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></div>
+                    <input type="submit" value="Zarejestruj"><br>
+                </form>
         </div>
-    </div>
-</nav>
-<h1>Formularz rejestracji</h1>
-<form action="/register" method="POST" th:object="${user}">
-    <label for="username">Nazwa użytkownika:</label><br>
-    <input type="text" id="username" name="username" th:field="*{username}" required th:value="${user.username}"><br>
-    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" th:field="*{email}" required th:value="${user.email}"><br>
-    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
-    <label for="password">Hasło:</label><br>
-    <input type="password" id="password" name="password" th:field="*{password}" required><br>
-    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
-    <label for="confirmPassword">Powtórz hasło:</label><br>
-    <input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" required><br>
-    <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></div>
-    <input type="submit" value="Zarejestruj"><br>
-</form>
+    </main>
+
+    <footer>
+        <div th:replace="~{/components/footer::ft}"></div>
+    </footer>
 </body>
 </html>

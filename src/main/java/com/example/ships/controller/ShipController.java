@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,7 +100,7 @@ public class ShipController {
             }
 
         redirectAttributes.addFlashAttribute("successMessage", "Statek dodany pomyślnie.");
-        return "redirect:/showArrivalShips";
+        return "redirect:/show_all_ships";
     }
 
     @GetMapping("/showArrivalShips")

@@ -4,107 +4,97 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">-->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+
     <title>Dodaj przybycie statku do portu w Świnoujściu</title>
 </head>
 <body>
-<nav>
-    <a th:href="@{/}"><span class="home">Home</span></a>
-    <div th:if="${session['username'] != null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="'Witaj ' + ${username} + '!'"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/profile}">Profil</a>
-                <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
-                <a th:href="@{/logout}">Wyloguj</a>
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
+
+    <header>
+        <div th:replace="~{/components/navbar::nav}"></div>
+    </header>
+
+    <main>
+        <div class="container">
+        <h1>Dodaj przybycie statku do portu w Świnoujściu</h1>
+        <form method="post" enctype="multipart/form-data" action="/addShip" th:object="${newShip}">
+            <div th:if="${successMessage}" class="success-message">
+                <p th:text="${successMessage}"></p>
             </div>
-        </div>
-    </div>
-
-    <div th:if="${session['username'] == null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="Gość"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/register}">Rejestracja</a>
-                <a th:href="@{/login}">Zaloguj</a>
+            <div th:if="${errorMessage}" class="error-message">
+                <p th:text="${errorMessage}"></p>
             </div>
-        </div>
+            <div th:if="${duplicateArrivalError}">
+                <span class="error" id="error" th:text="${duplicateArrivalError}"></span>
+            </div>
+
+            <div>
+                <label for="arrivalDate">Data przybycia statku do portu</label>
+                <input type="date" id="arrivalDate" name="arrivalDate" required th:value="*{arrivalDate}">
+                <span class="error" th:if="${#fields.hasErrors('arrivalDate')}" th:errors="*{arrivalDate}"></span>
+            </div>
+
+            <div>
+                <label for="arrivalTime">Godzina przybycia statku do portu</label>
+                <input type="time" id="arrivalTime" name="arrivalTime" required th:field="*{arrivalTime}">
+                <span class="error" th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}"></span>
+            </div>
+
+            <div>
+                <label for="initialPortCode">Kod portu, z którego jednostka przybyła</label>
+                <input type="text" id="initialPortCode" name="initialPortCode" required th:field="*{initialPortCode}">
+                <span class="error" th:if="${#fields.hasErrors('initialPortCode')}" th:errors="*{initialPortCode}"></span>
+            </div>
+
+            <div>
+                <label for="shipName">Nazwa statku</label>
+                <input type="text" id="shipName" name="shipName" required th:field="*{shipName}">
+                <span class="error" th:if="${#fields.hasErrors('shipName')}" th:errors="*{shipName}"></span>
+            </div>
+
+            <div>
+                <label for="flag">Bandera</label>
+                <input type="text" id="flag" name="flag" required th:field="*{flag}">
+                <span class="error" th:if="${#fields.hasErrors('flag')}" th:errors="*{flag}"></span>
+            </div>
+
+            <div>
+                <label for="grossCapacity">Pojemność brutto</label>
+                <input type="number" id="grossCapacity" name="grossCapacity" step="any" min="0" required th:field="*{grossCapacity}">
+                <span class="error" th:if="${#fields.hasErrors('grossCapacity')}" th:errors="*{grossCapacity}"></span>
+            </div>
+
+            <div>
+                <label for="length">Długość</label>
+                <input type="number" id="length" name="length" step="any" min="0" required th:field="*{length}">
+                <span class="error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}"></span>
+            </div>
+
+            <div>
+                <label for="agent">Agent</label>
+                <input type="text" id="agent" name="agent" required th:field="*{agent}">
+                <span class="error" th:if="${#fields.hasErrors('agent')}" th:errors="*{agent}"></span>
+            </div>
+
+            <div>
+                <label for="mooringPlace">Miejsce zacumowania</label>
+                <input type="text" id="mooringPlace" name="mooringPlace" required th:field="*{mooringPlace}">
+                <span class="error" th:if="${#fields.hasErrors('mooringPlace')}" th:errors="*{mooringPlace}"></span>
+            </div>
+
+            <div>
+                <button type="submit">Dodaj</button>
+                <button type="reset">Resetuj</button>
+            </div>
+        </form>
     </div>
+    </main>
 
-</nav>
-
-<div class="container">
-    <h1>Dodaj przybycie statku do portu w Świnoujściu</h1>
-    <form method="post" enctype="multipart/form-data" action="/addShip" th:object="${newShip}">
-        <div th:if="${successMessage}" class="success-message">
-            <p th:text="${successMessage}"></p>
-        </div>
-        <div th:if="${errorMessage}" class="error-message">
-            <p th:text="${errorMessage}"></p>
-        </div>
-        <div th:if="${duplicateArrivalError}">
-            <span class="error" id="error" th:text="${duplicateArrivalError}"></span>
-        </div>
-
-        <div>
-            <label for="arrivalDate">Data przybycia statku do portu</label>
-            <input type="date" id="arrivalDate" name="arrivalDate" required th:value="*{arrivalDate}">
-            <span class="error" th:if="${#fields.hasErrors('arrivalDate')}" th:errors="*{arrivalDate}"></span>
-        </div>
-
-        <div>
-            <label for="arrivalTime">Godzina przybycia statku do portu</label>
-            <input type="time" id="arrivalTime" name="arrivalTime" required th:field="*{arrivalTime}">
-            <span class="error" th:if="${#fields.hasErrors('arrivalTime')}" th:errors="*{arrivalTime}"></span>
-        </div>
-
-        <div>
-            <label for="initialPortCode">Kod portu, z którego jednostka przybyła</label>
-            <input type="text" id="initialPortCode" name="initialPortCode" required th:field="*{initialPortCode}">
-            <span class="error" th:if="${#fields.hasErrors('initialPortCode')}" th:errors="*{initialPortCode}"></span>
-        </div>
-
-        <div>
-            <label for="shipName">Nazwa statku</label>
-            <input type="text" id="shipName" name="shipName" required th:field="*{shipName}">
-            <span class="error" th:if="${#fields.hasErrors('shipName')}" th:errors="*{shipName}"></span>
-        </div>
-
-        <div>
-            <label for="flag">Bandera</label>
-            <input type="text" id="flag" name="flag" required th:field="*{flag}">
-            <span class="error" th:if="${#fields.hasErrors('flag')}" th:errors="*{flag}"></span>
-        </div>
-
-        <div>
-            <label for="grossCapacity">Pojemność brutto</label>
-            <input type="number" id="grossCapacity" name="grossCapacity" step="any" min="0" required th:field="*{grossCapacity}">
-            <span class="error" th:if="${#fields.hasErrors('grossCapacity')}" th:errors="*{grossCapacity}"></span>
-        </div>
-
-        <div>
-            <label for="length">Długość</label>
-            <input type="number" id="length" name="length" step="any" min="0" required th:field="*{length}">
-            <span class="error" th:if="${#fields.hasErrors('length')}" th:errors="*{length}"></span>
-        </div>
-
-        <div>
-            <label for="agent">Agent</label>
-            <input type="text" id="agent" name="agent" required th:field="*{agent}">
-            <span class="error" th:if="${#fields.hasErrors('agent')}" th:errors="*{agent}"></span>
-        </div>
-
-        <div>
-            <label for="mooringPlace">Miejsce zacumowania</label>
-            <input type="text" id="mooringPlace" name="mooringPlace" required th:field="*{mooringPlace}">
-            <span class="error" th:if="${#fields.hasErrors('mooringPlace')}" th:errors="*{mooringPlace}"></span>
-        </div>
-
-        <div>
-            <button type="submit">Dodaj</button>
-            <button type="reset">Resetuj</button>
-        </div>
-    </form>
-</div>
+    <footer>
+        <div th:replace="~{/components/footer::ft}"></div>
+    </footer>
 </body>
 </html>
