@@ -72,11 +72,12 @@ public class ShipController {
     {
         HttpSession session = request.getSession();
         System.out.println(session.getAttribute("user_id"));
-        if (!shipService.validationTimeDependsOnDate(newShip.getArrivalDate(), newShip.getArrivalTime())) {
+        if (shipService.validationTimeDependsOnDate(newShip)) {
             bindingResult.rejectValue("arrivalTime", "ship.invalidTime", "Dla wybranej daty ten czas wykracza w przyszłość");
         }
 
-        if (!shipService.validationDate(newShip.getArrivalDate())) {
+        if (shipService.validationDate(newShip))
+        {
             bindingResult.rejectValue("arrivalDate", "ship.invalidDate", "Wybrana data jest z przyszłości");
         }
 
@@ -85,7 +86,8 @@ public class ShipController {
             return "addShip";
         }
 
-        if (shipService.duplicateArrival(newShip.getShipName(), newShip.getArrivalDate(), newShip.getArrivalTime())) {
+        if (shipService.duplicateArrival(newShip))
+        {
             model.addAttribute("duplicateArrivalError", "Statek o podanej nazwie, dacie i godzinie już istnieje");
             return "addShip";
         }
@@ -239,11 +241,11 @@ public class ShipController {
     {
         HttpSession session = request.getSession();
 
-        if (!shipService.validationTimeDependsOnDate(ship.getArrivalDate(), ship.getArrivalTime())) {
+        if (shipService.validationTimeDependsOnDate(ship)) {
             bindingResult.rejectValue("arrivalTime", "ship.invalidTime", "Dla wybranej daty ten czas wykracza w przyszłość");
         }
 
-        if (!shipService.validationDate(ship.getArrivalDate())) {
+        if (shipService.validationDate(ship)) {
             bindingResult.rejectValue("arrivalDate", "ship.invalidDate", "Wybrana data jest z przyszłości");
         }
 
@@ -252,7 +254,7 @@ public class ShipController {
             return "editShip";
         }
 
-        if (shipService.duplicateArrivalEdit(id,ship.getShipName(), ship.getArrivalDate(), ship.getArrivalTime())) {
+        if (shipService.duplicateArrivalEdit(ship)) {
             model.addAttribute("duplicateArrivalError", "Statek o podanej nazwie, dacie i godzinie już istnieje");
             return "editShip";
         }
