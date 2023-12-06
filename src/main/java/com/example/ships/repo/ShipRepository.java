@@ -10,6 +10,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface ShipRepository extends JpaRepository<Ship, Long> {
+public interface ShipRepository extends JpaRepository<Ship, Long>
+{
     List<Ship> findByShipNameAndArrivalDateAndArrivalTime(String shipName, LocalDate arrivalDate, LocalTime arrivalTime);
+
 }
