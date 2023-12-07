@@ -57,14 +57,13 @@ public class FileController {
     }
 
     @PostMapping("/importShipJson")
-    public String importShip(HttpServletRequest request,
+    public String importToJsonFile(HttpServletRequest request,
                              RedirectAttributes redirectAttributes,
                              @RequestPart("fileShips") MultipartFile file,
-                             HttpSession session) throws IOException
+                             HttpSession session)
     {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Please select a file to upload.");
-            return "redirect:/importShipJsonForm";
         }
 
         try {
@@ -204,4 +203,28 @@ public class FileController {
         }
 
     }
+    @GetMapping("/exportJsonAllShips")
+    public String exportAllJson(RedirectAttributes redirectAttributes) throws IOException {
+        List<Ship> ships = _shipService.getAllShips();
+        _fileService.exportToJsonFile(ships,redirectAttributes);
+        return "redirect:/show_all_ships";
+    }
+
+    @GetMapping("/exportJsonOneShip/{id}")
+    public String exportOneJson(@PathVariable Long id,RedirectAttributes redirectAttributes) throws IOException {
+        List <Ship> ships = new ArrayList<>();
+        Optional<Ship> ship = _shipRepository.findById(id);
+        if(ship.isPresent())
+        {
+            ships.add(ship.get());
+            _fileService.exportToJsonFile(ships,redirectAttributes);
+            return "redirect:/show_all_ships";
+        }
+        else
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "Statek nie istnieje");
+            return "redirect:/show_all_ships";
+        }
+    }
+
 }

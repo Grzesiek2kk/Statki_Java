@@ -55,7 +55,7 @@ public class ShipController {
             else
             {
                 model.addAttribute("errorMessage", "Niezalogowany użytkownik nie moze wprowadzać nowych przypłynięć!");
-                return "home";
+                return "index";
             }
     }
 
@@ -163,6 +163,30 @@ public class ShipController {
         return "viewShip";
     }
 
+    @GetMapping("/show_all_ships/{id}")
+    public String ship_details(@PathVariable Long id, Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        Long userId = (Long) session.getAttribute("user_id");
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+            model.addAttribute("userId", userId);
+        }
+
+        Optional<Ship> optionalShip = shipRepository.findById(id);
+
+        if (optionalShip.isPresent()) {
+            Ship ship = optionalShip.get();
+            model.addAttribute("ship", ship);
+        }
+        else
+        {
+            model.addAttribute("errorMessage", "Wybrany statek nie istnieje");
+        }
+        return "viewShip";
+    }
+
     @Transactional
     @GetMapping("/deleteShip/{id}")
     public String deleteShip(@PathVariable Long id, Model model, HttpSession session, RedirectAttributes redirectAttributes)
@@ -201,7 +225,7 @@ public class ShipController {
             return "editShip";
         }
         redirectAttributes.addFlashAttribute("errorMessage", "Wybrany statek nie istnieje");
-        return "redirect:/showArrivalShips";
+        return "redirect:/show_all_ships";
     }
 
     @Transactional
@@ -257,6 +281,6 @@ public class ShipController {
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "Przypłyięcie statku do portu zostało pomyślnie zaktualizowane.");
-        return "redirect:/showArrivalShips";
+        return "redirect:/show_all_ships";
     }
 }
