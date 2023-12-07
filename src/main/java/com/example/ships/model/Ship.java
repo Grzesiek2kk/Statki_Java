@@ -1,5 +1,6 @@
 package com.example.ships.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
@@ -28,13 +29,13 @@ public class Ship {
     private String finalPortCode = "PLSWI";
 
     @NotNull(message = "Data przybycia statku nie może być pusta")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonProperty("Data przybycia")
     @SerializedName("Data przybycia")
     public LocalDate arrivalDate;
 
     @NotNull(message = "Godzina nie może być pusta")
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @JsonFormat(pattern = "HH:mm:ss")
     @JsonProperty("Godzina przybycia")
     @SerializedName("Godzina przybycia")
     public LocalTime arrivalTime;
