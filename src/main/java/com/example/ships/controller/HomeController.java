@@ -46,10 +46,12 @@ public class HomeController {
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
+        String email = (String) session.getAttribute("email");
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
         System.out.println("czy admin w /home " + isAdmin);
         if (username != null) {
             model.addAttribute("username", username);
+            model.addAttribute("email", email);
             model.addAttribute("isAdmin", isAdmin);
         }
         return "userProfile";
@@ -77,6 +79,42 @@ public class HomeController {
             model.addAttribute("isAdmin", isAdmin);
         }
         return "placeholder";
+    }
+
+    @GetMapping("/about_us")
+    public String about_us(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        System.out.println("czy admin w /home " + isAdmin);
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+        }
+        return "about_us";
+    }
+
+    @GetMapping("/contact")
+    public String contact(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        System.out.println("czy admin w /home " + isAdmin);
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+        }
+        return "contact";
+    }
+
+    @GetMapping("/service_offer")
+    public String service_offer(Model model, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+        System.out.println("czy admin w /home " + isAdmin);
+        if (username != null) {
+            model.addAttribute("username", username);
+            model.addAttribute("isAdmin", isAdmin);
+        }
+        return "service_offer";
     }
 }
 

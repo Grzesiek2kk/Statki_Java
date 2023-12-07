@@ -46,6 +46,20 @@
                 </div>
               </div>
             </li>
+
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Port
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" aria-current="page" th:href="@{/about_us}">O nas</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" aria-current="page" th:href="@{/service_offer}">Nasza oferta</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" th:href="@{/contact}">Kontakt</a>
+              </div>
+            </li>
+
             <li class="nav-item dropdown active">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Debug
@@ -68,7 +82,9 @@
                 </button>
                 <ul class="dropdown-menu">
                   <a class="dropdown-item" th:href="@{/profile}">Profil</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" th:href="@{/logout}">Wyloguj</a>
                 </ul>
               </div>
@@ -83,6 +99,7 @@
                 </button>
                 <ul class="dropdown-menu">
                   <a class="dropdown-item" th:href="@{/register}">Rejestracja</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" th:href="@{/login}">Zaloguj</a>
                 </ul>
               </div>

@@ -27,7 +27,14 @@
 
 <main class="my-5">
     <div class="container my-3">
-        <div class="container">
+
+        <div class="container my-3">
+            <div class="d-flex justify-content-center">
+                <h1 class="m-2 text-info">Witamy na stronie portu Świnoujście!</h1>
+            </div>
+        </div>
+
+        <div class="container my-3">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -38,8 +45,8 @@
                     <div class="carousel-item active">
                         <img class="d-block w-100" th:src="@{${'/img/img1.jpg'}}" alt="First slide">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Port Śinoujście</h5>
-                            <p>Tak, jesteśy portem morskim w świnoujściu</p>
+                            <h5>Port Świnoujście</h5>
+                            <p>Tak, jesteśy portem morskim w Świnoujściu, proszę nie mylić nas ze SZCZECINEM!</p>
                         </div>
                     </div>
 
@@ -47,7 +54,7 @@
                         <img class="d-block w-100" th:src="@{${'/img/img3.jpg'}}" alt="Second slide">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Statek</h5>
-                            <p>O cholera! Toż to statek</p>
+                            <p>O cholera! Toż to statek, i to jaki czerwony, znaczy się szybki.</p>
                         </div>
                     </div>
 
@@ -73,7 +80,7 @@
         <div class="container my-3">
             <div class="row">
                 <div class="col">
-                    <div class="card-group">
+                    <div class="card-deck">
                         <div class="card">
                             <img
                                     src="https://picsum.photos/id/200/320/200"
@@ -81,17 +88,15 @@
                                     alt="..."
                             />
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                                <h5 class="card-title">Oferta</h5>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This content is a little bit
-                                    longer.
+                                    Zapraszamy do zapoznania się z ofertą usług realizowanych przez nasz port. Usługi kierowane są zarówno do klientów profesjonalnych jak i osób prywatnych.
                                 </p>
 
                                 <div class="">
-                                    <a href="#"
+                                    <a th:href="@{/service_offer}"
                                     ><button type="button" class="btn btn-primary">
-                                        Read more
+                                        Oferta
                                     </button></a
                                     >
                                 </div>
@@ -104,16 +109,15 @@
                                     alt="..."
                             />
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                                <h5 class="card-title">O porcie</h5>
                                 <p class="card-text">
-                                    This card has supporting text below as a natural lead-in to
-                                    additional content.
+                                    Zapoznaj się z informacjami jak i hiostorią Portu Świnoujście.
                                 </p>
 
                                 <div class="">
-                                    <a href="#"
+                                    <a th:href="@{/about_us}"
                                     ><button type="button" class="btn btn-primary">
-                                        Read more
+                                        O nas
                                     </button></a
                                     >
                                 </div>
@@ -126,17 +130,15 @@
                                     alt="..."
                             />
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
+                                <h5 class="card-title">Kontakt</h5>
                                 <p class="card-text">
-                                    This is a wider card with supporting text below as a natural
-                                    lead-in to additional content. This card has even longer
-                                    content than the first to show that equal height action.
+                                    Informacje kontaktowe do sekretariatu, szypra oraz biura zarządu portu.
                                 </p>
 
                                 <div class="">
-                                    <a href="#"
+                                    <a th:href="@{/contact}"
                                     ><button type="button" class="btn btn-primary">
-                                        Read more
+                                        Kontakt
                                     </button></a
                                     >
                                 </div>
@@ -147,15 +149,8 @@
             </div>
         </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col border">
-                    Here comes the content
-                </div>
-                <div class="col border">
-                    Here comes the content
-                </div>
-            </div>
+        <div class="container my-3">
+            <p>Galeria Here</p>
         </div>
 
         </div>
@@ -166,20 +161,6 @@
 
     <footer>
         <div th:replace="~{/components/footer::ft}"></div>
-
-        <!--<div class="container-fluid" style="color-scheme: dark">-->
-        <!--    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">-->
-        <!--        <p class="col-md-4 mb-0 text-muted">© 2021 Company, Inc</p>-->
-
-        <!--        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">-->
-        <!--            <img th:src="@{/img/logo_v2.png}" alt="logo" width="30" height="30" class="d-inline-block align-text-middle">-->
-        <!--        </a>-->
-
-        <!--        <ul class="nav col-md-4 justify-content-end">-->
-        <!--            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>-->
-        <!--        </ul>-->
-        <!--    </footer>-->
-        <!--</div>-->
     </footer>
 
 </body>

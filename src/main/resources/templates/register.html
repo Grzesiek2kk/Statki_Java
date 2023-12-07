@@ -6,32 +6,64 @@
 
 <!--    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">-->
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 </head>
 <body>
     <script th:src="@{/js/bootstrap.bundle.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
     <header>
         <div th:replace="~{/components/navbar::nav}"></div>
     </header>
 
     <main>
-        <div class="container">
-            <h1>Formularz rejestracji</h1>
+        <div class="container my-5">
+
+            <div class="text-cdnter" my-3>
+                <h1>Formularz rejestracji</h1>
+            </div>
+
+            <div class="m-3">
                 <form action="/register" method="POST" th:object="${user}">
-                    <label for="username">Nazwa użytkownika:</label><br>
-                    <input type="text" id="username" name="username" th:field="*{username}" required th:value="${user.username}"><br>
-                    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
-                    <label for="email">Email:</label><br>
-                    <input type="email" id="email" name="email" th:field="*{email}" required th:value="${user.email}"><br>
-                    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
-                    <label for="password">Hasło:</label><br>
-                    <input type="password" id="password" name="password" th:field="*{password}" required><br>
-                    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
-                    <label for="confirmPassword">Powtórz hasło:</label><br>
-                    <input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" required><br>
-                    <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></div>
-                    <input type="submit" value="Zarejestruj"><br>
+                    <div>
+                        <label for="username" class="form-label">Nazwa użytkownika:</label><br>
+                        <input type="text" id="username" name="username" th:field="*{username}" required th:value="${user.username}" class="form-control"><br>
+                        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></div>
+                    </div>
+
+                    <div>
+                        <label for="email" class="form-label">Email:</label><br>
+                        <input type="email" id="email" name="email" th:field="*{email}" required th:value="${user.email}" class="form-control"><br>
+                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></div>
+                    </div>
+
+                    <div class="my-3">
+                        <div class="row">
+                            <div class="col">
+                                <label for="password" class="form-label">Hasło:</label><br>
+                                <input type="password" id="password" name="password" th:field="*{password}" required class="form-control"><br>
+                                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></div>
+                            </div>
+
+                            <div class="col">
+                                <label for="confirmPassword" class="form-label">Powtórz hasło:</label><br>
+                                <input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" required class="form-control"><br>
+                                <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></div>
+                            </div>
+
+                            <small id="passwordHelp" class="form-text text-muted">Wymagane: 1 Duża litera, 1 Mała litera, 1 Cyfra i 1 Znak specjalny. Hasło powinno mieć min 8 znaków całkowicie.</small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-info mx-1">Zarejestruj</button>
+                        <button type="reset" class="btn btn-danger" mx-1>Resetuj</button>
+                    </div>
                 </form>
+            </div>
         </div>
     </main>
 
