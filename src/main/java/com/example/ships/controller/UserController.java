@@ -87,7 +87,7 @@ public class UserController {
                 String token = jwtUtil.generateToken(loggedInUser.getEmail());
 
                 Boolean isAdmin = userService.isAdminRole(loggedInUser.getRoles());
-                System.out.println(isAdmin);
+                System.out.println(isAdmin+"logowanie");
                 HttpSession session = request.getSession();
                 session.setAttribute("username", loggedInUser.getUsername());
                 session.setAttribute("token", token);
@@ -97,6 +97,7 @@ public class UserController {
                     session.setAttribute("isAdmin", true);
                     return "redirect:/admin";
                 } else {
+                    session.setAttribute("isAdmin", false);
                     return "redirect:/";
                 }
             }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Set;
 
 import java.time.LocalDate;
@@ -32,27 +34,13 @@ public class ShipService {
     @Transactional
     public List<Ship> saveAllShips(List<Ship> ships, Long user_id)
     {
-        List <Ship> skippedShips = new ArrayList<>();
         User u = userService.getUserById(user_id);
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
-
-        List<Ship> validShips = new ArrayList<>();
         List<Ship> invalidShips = new ArrayList<>();
 
-        for (Ship s : ships) {
-            Set<ConstraintViolation<Ship>> violations = validator.validate(s);
 
-            if (!violations.isEmpty())
-            {
-                invalidShips.add(s);
-            } else
-            {
-                validShips.add(s);
-            }
-        }
-
-        for (Ship s : validShips)
+        for (Ship s : ships)
             {
                 boolean isDuplicateArrival = duplicateArrival(s);
                 boolean isValidateDate = validationDate(s);
@@ -60,13 +48,22 @@ public class ShipService {
 
                 System.out.println(isDuplicateArrival);
                 System.out.println(s.shipName);
+
                 if (isDuplicateArrival || isValidateDate || isValidateTimeDependsOnDate) {
                     System.out.println(s.shipName);
                     invalidShips.add(s);
                 } else
                 {
-                    s.setUser(u);
-                    shipRepository.save(s);
+                    Set<ConstraintViolation<Ship>> violations = validator.validate(s);
+
+                    if (!violations.isEmpty())
+                    {
+                        invalidShips.add(s);
+                    } else
+                    {
+                        s.setUser(u);
+                        shipRepository.save(s);
+                    }
                 }
             }
         return invalidShips;
