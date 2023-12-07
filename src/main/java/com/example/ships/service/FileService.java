@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class FileService
 {
     @Autowired
     private ShipRepository shipRepository;
+    private ShipService shipService;
 
     public List<Ship> readShipFromJson(MultipartFile file) throws IOException {
         Gson gson = new GsonBuilder()
@@ -112,6 +114,24 @@ public class FileService
             return false;
         }
         return true;
+    }
+
+    public void exportToJsonFile(List <Ship> ships, RedirectAttributes redirectAttributes) throws IOException {
+
+        if(ships.isEmpty())
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "Brak statków do zaimportowania");
+        }
+        boolean isSuccess = writeToJsonFile(ships);
+        if(isSuccess)
+        {
+            redirectAttributes.addFlashAttribute("successMessage", "Eksportowanie pliku zakonczylo sie powodzeniem");
+        }
+        else
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "Eksportowanie pliku zakonczylo sie niepowodzeniem");
+
+        }
     }
 
 

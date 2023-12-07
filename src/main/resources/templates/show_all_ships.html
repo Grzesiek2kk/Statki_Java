@@ -24,6 +24,14 @@
         <div class="d-flex justify-content-center">
           <h1 class="m-3 text-info">Tabela przypłynięc statków</h1>
         </div>
+          <div>
+              <div th:if="${successMessage}" class="success-message">
+                  <p th:text="${successMessage}"></p>
+              </div>
+              <div th:if="${errorMessage}" class="error-message">
+                  <p th:text="${errorMessage}"></p>
+              </div>
+          </div>
       <table class="table table-dark table-striped table-bordered border-info border-3 rounded table-hover">
         <thead>
         <tr>
@@ -53,12 +61,11 @@
             <div th:if="${ship.user.getId() ne userId and isAdmin ne true}" class="btn-group">
               <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-primary">Szczegóły</a>
             </div>
-<<<<<<< HEAD
+
             <div th:if="${session['user_id'] != null}">
               <a th:href="@{'/exportOne/' + ${ship.id}}" class="btn btn-primary">Wyeksportuj statek</a>
             </div>
-=======
->>>>>>> 9b3d4ac5beaabaa8068ac7951e3f167b99625e63
+
             <div class="btn-group">
               <a th:href="@{'/portDetails/' + ${ship.initialPortCode}}" class="btn btn-primary">Port macierzysty</a>
             </div>

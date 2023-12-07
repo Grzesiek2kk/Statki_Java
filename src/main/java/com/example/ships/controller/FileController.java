@@ -28,15 +28,13 @@ public class FileController {
 
     private final FileService _fileService;
     private final ShipService _shipService;
-    private final UserService _userService;
     private final ShipRepository _shipRepository;
 
 
     @Autowired
-    public FileController(FileService fileService, ShipService shipService, ShipRepository shipRepository, UserService userService, ShipRepository shipRepository1) {
+    public FileController(FileService fileService, ShipService shipService, ShipRepository shipRepository) {
         _fileService = fileService;
         _shipService = shipService;
-        _userService = userService;
         _shipRepository = shipRepository;
     }
 
@@ -64,11 +62,10 @@ public class FileController {
     public String importToJsonFile(HttpServletRequest request,
                              RedirectAttributes redirectAttributes,
                              @RequestPart("fileShips") MultipartFile file,
-                             HttpSession session) throws IOException
+                             HttpSession session)
     {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Please select a file to upload.");
-            return "redirect:/importShipJsonForm";
         }
 
         try {
@@ -122,7 +119,7 @@ public class FileController {
     @GetMapping("/exportAll")
     public String exportAll(RedirectAttributes redirectAttributes) throws IOException {
         List<Ship> ships = _shipService.getAllShips();
-        exportToJsonFile(ships,redirectAttributes);
+        _fileService.exportToJsonFile(ships,redirectAttributes);
         return "redirect:/show_all_ships";
     }
 
@@ -133,34 +130,14 @@ public class FileController {
         if(ship.isPresent())
         {
             ships.add(ship.get());
-            exportToJsonFile(ships,redirectAttributes);
+            _fileService.exportToJsonFile(ships,redirectAttributes);
+            return "redirect:/show_all_ships";
         }
         else
         {
             redirectAttributes.addFlashAttribute("errorMessage", "Statek nie istnieje");
             return "redirect:/show_all_ships";
         }
-        return "redirect:/show_all_ships";
     }
 
-
-    public String exportToJsonFile(List <Ship> ships, RedirectAttributes redirectAttributes) throws IOException {
-
-        if(ships.isEmpty())
-        {
-            redirectAttributes.addFlashAttribute("errorMessage", "Brak statków do zaimportowania");
-            return "redirect:/show_all_ships";
-        }
-        boolean isSuccess = _fileService.writeToJsonFile(ships);
-        if(isSuccess)
-        {
-            redirectAttributes.addFlashAttribute("successMessage", "Eksportowanie pliku zakonczylo sie powodzeniem");
-        }
-        else
-        {
-            redirectAttributes.addFlashAttribute("errorMessage", "Eksportowanie pliku zakonczylo sie niepowodzeniem");
-
-        }
-        return "redirect:/";
-    }
 }
