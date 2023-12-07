@@ -1,4 +1,4 @@
-package com.example.ships.config;
+package com.example.ships.adapter;
 
 import com.google.gson.*;
 import java.lang.reflect.Type;

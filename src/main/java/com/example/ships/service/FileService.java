@@ -1,11 +1,9 @@
 package com.example.ships.service;
 
-import com.example.ships.config.LocalDateAdapter;
-import com.example.ships.config.LocalTimeAdapter;
+import com.example.ships.adapter.LocalDateAdapter;
+import com.example.ships.adapter.LocalTimeAdapter;
 import com.example.ships.model.Ship;
 import com.example.ships.repo.ShipRepository;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
