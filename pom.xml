@@ -114,7 +114,6 @@
 			<artifactId>spring-tx</artifactId>
 			<version>6.0.14</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>

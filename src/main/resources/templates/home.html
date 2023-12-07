@@ -67,9 +67,14 @@
     </a>
   </div>
 
-  <div class="button">
+  <div class="button" th:if="${isAdmin}">
     <a th:href="@{/importShipJsonForm}">
       <button>Importuj przypłynięcia statków z pliku JSON</button>
+    </a>
+  </div>
+  <div class="button" th:if="${session['username'] != null}">
+    <a th:href="@{/exportShipJsonForm}">
+      <button>Eksportuj przypłynięcia statków do pliku JSON</button>
     </a>
   </div>
 
