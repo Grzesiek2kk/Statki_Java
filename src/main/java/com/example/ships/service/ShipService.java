@@ -5,8 +5,11 @@ import com.example.ships.repo.ShipRepository;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Set;
 
 import java.time.LocalDate;
@@ -31,36 +34,40 @@ public class ShipService {
     @Transactional
     public List<Ship> saveAllShips(List<Ship> ships, Long user_id)
     {
-
-        List <Ship> skippedShips = new ArrayList<>();
         User u = userService.getUserById(user_id);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        List<Ship> invalidShips = new ArrayList<>();
+
 
         for (Ship s : ships)
             {
-                try {
-                    boolean isDuplicateArrival = duplicateArrival(s);
-                    boolean isValidateDate = validationDate(s);
-                    boolean isValidateTimeDependsOnDate = validationTimeDependsOnDate(s);
+                boolean isDuplicateArrival = duplicateArrival(s);
+                boolean isValidateDate = validationDate(s);
+                boolean isValidateTimeDependsOnDate = validationTimeDependsOnDate(s);
 
-                    System.out.println(isDuplicateArrival);
+                System.out.println(isDuplicateArrival);
+                System.out.println(s.shipName);
+
+                if (isDuplicateArrival || isValidateDate || isValidateTimeDependsOnDate) {
                     System.out.println(s.shipName);
-                    if (isDuplicateArrival || isValidateDate || isValidateTimeDependsOnDate) {
-                        System.out.println(s.shipName);
-                        skippedShips.add(s);
-                    } else {
+                    invalidShips.add(s);
+                } else
+                {
+                    Set<ConstraintViolation<Ship>> violations = validator.validate(s);
+
+                    if (!violations.isEmpty())
+                    {
+                        invalidShips.add(s);
+                    } else
+                    {
                         s.setUser(u);
                         shipRepository.save(s);
                     }
                 }
-                catch (Exception e)
-                {
-                    skippedShips.add(s);
-                }
             }
-
-        return skippedShips;
+        return invalidShips;
     }
-
 
     public boolean duplicateArrival(Ship s) {
         List<Ship> duplicates = shipRepository.findByShipNameAndArrivalDateAndArrivalTime(s.getShipName(), s.getArrivalDate(), s.getArrivalTime());

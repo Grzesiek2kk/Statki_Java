@@ -67,9 +67,27 @@
     </a>
   </div>
 
-  <div class="button">
+  <div class="button" th:if="${session['username'] != null}">
     <a th:href="@{/importShipJsonForm}">
       <button>Importuj przypłynięcia statków z pliku JSON</button>
+    </a>
+  </div>
+
+  <div class="button" th:if="${session['username'] != null}">
+    <a th:href="@{/importShipXmlForm}">
+      <button>Importuj przypłynięcia statków z pliku XML</button>
+    </a>
+  </div>
+
+  <div class="button" th:if="${session['username'] != null}">
+    <a th:href="@{/exportXmlAllShip}">
+      <button>Eksportuj przypłynięcia statków do pliku XML</button>
+    </a>
+  </div>
+
+  <div class="button" th:if="${session['username'] != null}">
+    <a th:href="@{/exportXmlOneShip}">
+      <button>Eksportuj przypłynięcie jednego statku do pliku XML</button>
     </a>
   </div>
 

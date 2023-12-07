@@ -1,5 +1,6 @@
 package com.example.ships.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @Null
+    @JsonIgnore
     private List<Ship> ships;
     public User() {}
 

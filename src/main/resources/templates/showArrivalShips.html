@@ -65,6 +65,9 @@
                     <a th:href="@{'/deleteShip/' + ${ship.id}}"><button>Usuń</button></a>
                     <a th:href="@{'/editShip/' + ${ship.id}}"><button>Edytuj</button></a>
                 </td>
+                <td th:if="${session['user_id'] != null}">
+                    <a th:href="@{'/exportXmlOneShip/' + ${ship.id}}" class="btn btn-primary">Wyeksportuj statek</a>
+                </td>
             </tr>
             </tbody>
         </table>
