@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,11 +28,13 @@ public class Ship {
     private String finalPortCode = "PLSWI";
 
     @NotNull(message = "Data przybycia statku nie może być pusta")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonProperty("Data przybycia")
     @SerializedName("Data przybycia")
     public LocalDate arrivalDate;
 
     @NotNull(message = "Godzina nie może być pusta")
+    @DateTimeFormat(pattern = "HH:mm:ss")
     @JsonProperty("Godzina przybycia")
     @SerializedName("Godzina przybycia")
     public LocalTime arrivalTime;
