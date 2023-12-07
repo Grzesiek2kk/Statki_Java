@@ -44,6 +44,9 @@
             <div th:if="${ship.user.getId() ne userId and isAdmin ne true}" class="btn-group">
               <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-primary">Szczegóły</a>
             </div>
+            <div class="btn-group">
+              <a th:href="@{'/portDetails/' + ${ship.initialPortCode}}" class="btn btn-primary">Port macierzysty</a>
+            </div>
           </td>
         </tr>
         </tbody>
