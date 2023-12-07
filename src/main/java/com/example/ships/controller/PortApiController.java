@@ -4,6 +4,11 @@ import com.example.ships.adapter.LocalDateAdapter;
 import com.example.ships.adapter.LocalTimeAdapter;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+<<<<<<< HEAD
+=======
+import netscape.javascript.JSObject;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> 9b3d4ac5beaabaa8068ac7951e3f167b99625e63
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +18,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.LocalTime;
+=======
+import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+>>>>>>> 9b3d4ac5beaabaa8068ac7951e3f167b99625e63
 import java.util.Map;
 
 @Controller
