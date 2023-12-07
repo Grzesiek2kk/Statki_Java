@@ -9,6 +9,7 @@ import com.google.gson.JsonParseException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -25,12 +28,14 @@ public class FileController {
     private final FileService _fileService;
     private final ShipService _shipService;
     private final UserService _userService;
+    private final ShipRepository _shipRepository;
 
     @Autowired
     public FileController(FileService fileService, ShipService shipService, ShipRepository shipRepository, UserService userService) {
         _fileService = fileService;
         _shipService = shipService;
         _userService = userService;
+        _shipRepository = shipRepository;
     }
 
     @GetMapping("/importShipJsonForm")
@@ -112,25 +117,48 @@ public class FileController {
         return "redirect:/importShipJsonForm";
     }
 
-    @GetMapping("/exportShipJsonForm")
-    public String exportToJsonFile(RedirectAttributes redirectAttributes) throws IOException {
+    @GetMapping("/exportAll")
+    public String exportAll(RedirectAttributes redirectAttributes) throws IOException {
         List<Ship> ships = _shipService.getAllShips();
+        exportToJsonFile(ships,redirectAttributes);
+        return "redirect:/show_all_ships";
+    }
+
+    @GetMapping("/exportOne/{id}")
+    public String exportOne(@PathVariable Long id,RedirectAttributes redirectAttributes) throws IOException {
+        List <Ship> ships = new ArrayList<>();
+        Optional<Ship> ship = _shipRepository.findById(id);
+        if(ship.isPresent())
+        {
+            ships.add(ship.get());
+            exportToJsonFile(ships,redirectAttributes);
+        }
+        else
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "Statek nie istnieje");
+            return "redirect:/show_all_ships";
+        }
+        return "redirect:/show_all_ships";
+    }
+
+
+    public String exportToJsonFile(List <Ship> ships, RedirectAttributes redirectAttributes) throws IOException {
+
         if(ships.isEmpty())
         {
             redirectAttributes.addFlashAttribute("errorMessage", "Brak statków do zaimportowania");
-
+            return "redirect:/show_all_ships";
         }
         boolean isSuccess = _fileService.writeToJsonFile(ships);
         if(isSuccess)
         {
             redirectAttributes.addFlashAttribute("successMessage", "Eksportowanie pliku zakonczylo sie powodzeniem");
-
+            return "redirect:/show_all_ships";
         }
         else
         {
             redirectAttributes.addFlashAttribute("errorMessage", "Eksportowanie pliku zakonczylo sie niepowodzeniem");
-
+            return "redirect:/show_all_ships";
         }
-        return "redirect:/";
     }
 }
