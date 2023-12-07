@@ -4,21 +4,20 @@ import com.example.ships.config.LocalDateAdapter;
 import com.example.ships.config.LocalTimeAdapter;
 import com.example.ships.model.Ship;
 import com.example.ships.repo.ShipRepository;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+
 
 
 @Service
