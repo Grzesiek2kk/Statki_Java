@@ -36,8 +36,8 @@
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" aria-current="page" th:href="@{/addShip}">Dodaj Statek</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" aria-current="page" th:href="@{/placeholder}">Zaimportuj listę statków z pliku</a>
-                  <a class="dropdown-item" aria-current="page" th:href="@{/exportAll}">Eksportuj listę statków do pliku</a>
+                  <a class="dropdown-item" aria-current="page" th:href="@{/placeholder}">Zaimportuj listę statków z pliku JSON</a>
+                  <a class="dropdown-item" aria-current="page" th:href="@{/exportJsonAllShips}">Eksportuj listę statków do pliku JSON</a>
                 </div>
               </div>
               <div th:if="${session['username'] == null}">

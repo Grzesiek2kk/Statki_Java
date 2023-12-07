@@ -116,14 +116,14 @@ public class FileController {
         return "redirect:/importShipJsonForm";
     }
 
-    @GetMapping("/exportAll")
+    @GetMapping("/exportJsonAllShips")
     public String exportAll(RedirectAttributes redirectAttributes) throws IOException {
         List<Ship> ships = _shipService.getAllShips();
         _fileService.exportToJsonFile(ships,redirectAttributes);
         return "redirect:/show_all_ships";
     }
 
-    @GetMapping("/exportOne/{id}")
+    @GetMapping("/exportJsonOneShip/{id}")
     public String exportOne(@PathVariable Long id,RedirectAttributes redirectAttributes) throws IOException {
         List <Ship> ships = new ArrayList<>();
         Optional<Ship> ship = _shipRepository.findById(id);
