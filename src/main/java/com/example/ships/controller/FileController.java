@@ -54,7 +54,7 @@ public class FileController {
     }
 
     @PostMapping("/importShipJson")
-    public String importShip(HttpServletRequest request,
+    public String importToJsonFile(HttpServletRequest request,
                              RedirectAttributes redirectAttributes,
                              @RequestPart("fileShips") MultipartFile file,
                              HttpSession session) throws IOException
@@ -112,4 +112,25 @@ public class FileController {
         return "redirect:/importShipJsonForm";
     }
 
+    @GetMapping("/exportShipJsonForm")
+    public String exportToJsonFile(RedirectAttributes redirectAttributes) throws IOException {
+        List<Ship> ships = _shipService.getAllShips();
+        if(ships.isEmpty())
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "Brak statków do zaimportowania");
+
+        }
+        boolean isSuccess = _fileService.writeToJsonFile(ships);
+        if(isSuccess)
+        {
+            redirectAttributes.addFlashAttribute("successMessage", "Eksportowanie pliku zakonczylo sie powodzeniem");
+
+        }
+        else
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "Eksportowanie pliku zakonczylo sie niepowodzeniem");
+
+        }
+        return "redirect:/";
+    }
 }
