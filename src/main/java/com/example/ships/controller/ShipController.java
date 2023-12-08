@@ -5,6 +5,7 @@ import com.example.ships.model.User;
 import com.example.ships.repo.ShipRepository;
 import com.example.ships.service.ShipService;
 import com.example.ships.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -60,6 +61,7 @@ public class ShipController {
     }
 
     @Transactional
+    @Operation(summary = "Dodaj statek", description = "Dodaj statek")
     @PostMapping("/addShip")
     public String addShip(
             @Valid @ModelAttribute("newShip") Ship newShip,
@@ -105,6 +107,7 @@ public class ShipController {
         return "redirect:/show_all_ships";
     }
 
+    @Operation(summary = "Pokaż statki", description = "Pokaż statki przypływające")
     @GetMapping("/showArrivalShips")
     public String showArrivalShips(Model model, HttpSession session)
     {
@@ -123,6 +126,7 @@ public class ShipController {
     }
 
     @GetMapping("/show_all_ships")
+    @Operation(summary = "Pokaż statki", description = "Pokaż wszystkie statki")
     public String show_all_ships(Model model, HttpSession session)
     {
         String username = (String) session.getAttribute("username");
@@ -140,6 +144,7 @@ public class ShipController {
     }
 
     @GetMapping("/showArrivalShips/{id}")
+    @Operation(summary = "Dodaj statek", description = "Dodaj statek według id")
     public String shipDetails(@PathVariable Long id, Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
@@ -189,6 +194,7 @@ public class ShipController {
 
     @Transactional
     @GetMapping("/deleteShip/{id}")
+    @Operation(summary = "Usuń statek", description = "Usuń statek według id")
     public String deleteShip(@PathVariable Long id, Model model, HttpSession session, RedirectAttributes redirectAttributes)
     {
         Optional<Ship> ship = shipRepository.findById(id);
@@ -207,6 +213,7 @@ public class ShipController {
     }
 
     @GetMapping("/editShip/{id}")
+    @Operation(summary = "Przejdź do edycji statku", description = "Przejdź do edycji statku")
     public String editShipForm(@PathVariable Long id, Model model, HttpSession session, RedirectAttributes redirectAttributes)
     {
         String username = (String) session.getAttribute("username");
@@ -230,6 +237,7 @@ public class ShipController {
 
     @Transactional
     @PostMapping("/editShip/{id}")
+    @Operation(summary = "Edytuj statek", description = "Edytuj statek")
     public String deletShip(@Valid @ModelAttribute("ship") Ship ship,
                             BindingResult bindingResult,
                             Model model,
