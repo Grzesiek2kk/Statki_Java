@@ -3,16 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Port details</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 </head>
 <body>
-<h1>Port details</h1>
-<div>
-    Country Code: <span th:text="${port.features[0].properties.country.code}"></span><br>
-    Country Name: <span th:text="${port.features[0].properties.country.name}"></span><br>
-    City Name: <span th:text="${port.features[0].properties.name}"></span><br>
-    Region Code: <span th:text="${port.features[0].properties.region.code}"></span><br>
-    Region Name: <span th:text="${port.features[0].properties.region.name}"></span><br>
-    Port status: <span th:text="${port.features[0].properties.status}"></span><br>
-</div>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<header>
+    <div th:replace="~{/components/navbar::nav}"></div>
+</header>
+
+<main>
+    <div class="container my-5">
+        <div class="card text-light bg-info" style="width: 15rem">
+            <div class="card-header">
+                <div class="d-flex justify-content-center">
+                Szczegóły Portu
+                </div>
+            </div>
+            <div class="list-group list-group-flush text-dark">
+                <li class="list-group-item">Kod kraju: <span th:text="${port.features[0]?.properties?.country?.code}"></span><br></li>
+                <li class="list-group-item">Kraju: <span th:text="${port.features[0]?.properties?.country?.name}"></span><br></li>
+                <li class="list-group-item">Miasto: <span th:text="${port.features[0]?.properties?.name}"></span><br></li>
+                <li class="list-group-item">Kod regionu: <span th:text="${port.features[0]?.properties?.region?.code}"></span><br></li>
+                <li class="list-group-item">Region: <span th:text="${port.features[0]?.properties?.region?.name}"></span><br></li>
+                <li class="list-group-item">Status portu: <span th:text="${port.features[0]?.properties?.status}"></span><br></li>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center">
+                    <a th:href="@{/show_all_ships}"
+                    ><button type="button" class="btn btn-info border-white text-white">
+                        Lista Statków
+                    </button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div th:replace="~{/components/footer::ft}"></div>
+</footer>
+
 </body>
 </html>

@@ -20,9 +20,32 @@
 
   <main>
     <div class="container-fluid my-5">
+
+      <div>
+        <div th:if="${successMessage}" class="success-message">
+          <div class="d-flex justify-content-center">
+          <div class="card text-white bg-success mb-3 border-dark" style="max-width: 18rem;">
+            <div class="card-body">
+              <p th:text="${successMessage}"></p>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <div th:if="${errorMessage}" class="error-message">
+          <div class="d-flex justify-content-center">
+          <div class="card text-white bg-danger mb-3 border-dark" style="max-width: 18rem;">
+            <div class="card-body"
+            <p th:text="${errorMessage}"></p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
       <div class="m-3">
         <div class="d-flex justify-content-center">
-          <h1 class="m-3 text-info">Tabela przypłynięc statków</h1>
+          <h1 class="m-3 text-info">Lista przypłynięć statków</h1>
         </div>
           <div>
               <div th:if="${successMessage}" class="success-message">
@@ -53,27 +76,35 @@
           <td th:text="${ship.arrivalTime}"></td>
           <td th:text="${ship.mooringPlace}"></td>
           <td>
-            <div th:if="${ship.user.getId() eq userId or isAdmin eq true}" class="btn-group">
-              <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-primary">Szczegóły</a>
+            <div class="btn-toolbar">
+            <div th:if="${ship.user.getId() eq userId or isAdmin eq true}" class="btn-group m-2">
               <a th:href="@{'/deleteShip/' + ${ship.id}}" class="btn btn-danger">Usuń</a>
               <a th:href="@{'/editShip/' + ${ship.id}}" class="btn btn-success">Edytuj</a>
             </div>
-            <div th:if="${ship.user.getId() ne userId and isAdmin ne true}" class="btn-group">
-              <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-primary">Szczegóły</a>
+            <div class="btn-group m-2">
+              <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-info">Szczegóły</a>
             </div>
-
-            <div th:if="${session['user_id'] != null}">
-              <a th:href="@{'/exportJsonOneShip/' + ${ship.id}}" class="btn btn-primary">Wyeksportuj statek do pliku JSON</a>
+            <div th:if="${session['user_id'] != null}" class="btn-group m-2">
+              <a th:href="@{'/exportJsonOneShip/' + ${ship.id}}" class="btn btn-info">Eksportuj do JSON</a>
             </div>
-
-            <div class="btn-group">
-              <a th:href="@{'/portDetails/' + ${ship.initialPortCode}}" class="btn btn-primary">Port macierzysty</a>
+            <div class="btn-group m-2">
+              <a th:href="@{'/portDetails/' + ${ship.initialPortCode}}" class="btn btn-info">Port macierzysty</a>
+            </div>
             </div>
           </td>
         </tr>
         </tbody>
       </table>
     </div>
+
+    <div class="d-flex justify-content-center">
+      <div class="button" th:if="${session['username'] != null}">
+        <a th:href="@{/exportXmlAllShip}">
+          <button class="btn btn-info m-3">Eksportuj listę do pliku XML</button>
+        </a>
+      </div>
+    </div>
+
     </div>
   </main>
 

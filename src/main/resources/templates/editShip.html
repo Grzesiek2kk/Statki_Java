@@ -22,11 +22,22 @@
     <main>
         <div class="container">
 
-            <div th:if="${successMessage}" class="success-message">
-                <p th:text="${successMessage}"></p>
-            </div>
-            <div th:if="${errorMessage}" class="error-message">
-                <p th:text="${errorMessage}"></p>
+            <div>
+                <div th:if="${successMessage}" class="success-message">
+                    <div class="card text-white bg-success mb-3 border-dark" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <p th:text="${successMessage}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${errorMessage}" class="error-message">
+                    <div class="card text-white bg-warning mb-3 border-dark" style="max-width: 18rem;">
+                        <div class="card-body"
+                        <p th:text="${errorMessage}"></p>
+                    </div>
+                </div>
+                </div>
             </div>
 
             <div class="container my-5">

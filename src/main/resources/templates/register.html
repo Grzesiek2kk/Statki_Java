@@ -22,6 +22,24 @@
     <main>
         <div class="container my-5">
 
+            <div>
+                <div th:if="${successMessage}" class="success-message">
+                    <div class="card text-white bg-success mb-3 border-dark" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <p th:text="${successMessage}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${errorMessage}" class="error-message">
+                    <div class="card text-white bg-danger mb-3 border-dark" style="max-width: 18rem;">
+                        <div class="card-body"
+                        <p th:text="${errorMessage}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             <div class="text-cdnter" my-3>
                 <h1>Formularz rejestracji</h1>
             </div>

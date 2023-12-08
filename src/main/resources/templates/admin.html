@@ -23,30 +23,58 @@
     </header>
 
     <main>
-        <div class="container my-5 justify-content-center">
-            <div class="my-3">
-                <h2>Panel Administracyjny</h2>
-            </div>
+        <div class="container my-5">
                 <div class="col-md-4">
-                    <div class="card text-info bg-dark border-info h-100">
-                        <div class="card-header">
-                            Panel Administracyjny
+                    <div th:if="${isAdmin == true}">
+                    <div class="card text-info bg-dark border-info" style="width: 25rem">
+                        <div class="card-header bg-info text-dark">
+                            <div class="d-flex justify-content-center">
+                                Admin Panel
+                            </div>
                         </div>
-
-                        <div class="card-body">
-                            <h5 class="card-title">Opcje Administratora</h5>
-                            <p class="card-text">
-                                Tu będą opcje administracyjene
-                            </p>
-
-                            <footer class="d-flex justify-content-center">
+                            <div class="list-group list-group-flush text-dark bg-dark">
+                                <li class="list-group-item text-dark bg-dark">
+                                    <a th:href="@{/importShipJsonForm}">
+                                        <button class="btn btn-info border-dark text-dark">Importuj przypłynięcia statków z pliku JSON</button>
+                                    </a>
+                                </li>
+                                <li class="list-group-item text-dark bg-dark">
+                                    <a th:href="@{/importShipXmlForm}">
+                                        <button class="btn btn-info border-dark text-dark">Importuj przypłynięcia statków z pliku XML</button>
+                                    </a>
+                                </li>
+                            </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-center">
                                 <a th:href="@{/}"
-                                ><button type="button" class="btn btn-info">
+                                ><button type="button" class="btn btn-info border-dark text-dark">
                                     Home
                                 </button></a>
-                            </footer>
+                            </div>
                         </div>
                 </div>
+                    </div>
+
+                    <div th:if="${isAdmin != true}">
+                        <div class="card text-info bg-dark border-info" style="width: 25rem">
+                            <div class="card-header bg-info text-dark">
+                                <div class="d-flex justify-content-center">
+                                    Nie jesteś administratorem!
+                                </div>
+                            </div>
+                            <div class="card-body list-group-flush text-dark bg-dark">
+                                <img th:src="@{/img/not_admin.jpeg}" class="card-img-top border-info border-3 rounded-3 p-3" alt="not_admin"/>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-center">
+                                    <a th:href="@{/}"
+                                    ><button type="button" class="btn btn-info border-dark text-dark">
+                                        IĆ STONT!
+                                    </button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </main>

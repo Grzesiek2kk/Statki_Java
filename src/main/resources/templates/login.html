@@ -21,6 +21,25 @@
 
     <main>
         <div class="container my-5">
+
+            <div>
+                <div th:if="${successMessage}" class="success-message">
+                    <div class="card text-white bg-success mb-3 border-dark" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <p th:text="${successMessage}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${errorMessage}" class="error-message">
+                    <div class="card text-white bg-warning mb-3 border-dark" style="max-width: 18rem;">
+                        <div class="card-body"
+                        <p th:text="${errorMessage}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             <div class="my-3 text-center">
                 <h1 class="m-2 text-info">Logowanie</h1>
             </div>
