@@ -15,7 +15,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import jakarta.xml.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -123,6 +122,8 @@ public class Ship {
     @ManyToOne
     private User user;
 
-    public Ship() {};
+    public Ship() {
+
+    }
 }
 
