@@ -203,7 +203,7 @@ public class ShipController {
         {
             redirectAttributes.addFlashAttribute("errorMessage", "Wybrany statek nie istnieje");
         }
-        return "redirect:/showArrivalShips";
+        return "redirect:/show_all_ships";
     }
 
     @GetMapping("/editShip/{id}")

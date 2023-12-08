@@ -75,10 +75,12 @@
                             <small id="passwordHelp" class="form-text text-muted">Wymagane: 1 Duża litera, 1 Mała litera, 1 Cyfra i 1 Znak specjalny. Hasło powinno mieć min 8 znaków całkowicie.</small>
                         </div>
                     </div>
-
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-info mx-1">Zarejestruj</button>
-                        <button type="reset" class="btn btn-danger" mx-1>Resetuj</button>
+                        <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" th:href="@{/register.html}">Masz już konto? - Zaloguj sie</a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-info mx-1 my-2">Zarejestruj</button>
+                        <button type="reset" class="btn btn-danger mx-1 my-2" mx-1>Resetuj</button>
                     </div>
                 </form>
             </div>
