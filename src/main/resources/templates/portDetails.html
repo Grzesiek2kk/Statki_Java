@@ -7,12 +7,12 @@
 <body>
 <h1>Port details</h1>
 <div>
-    Country Code: <span th:text="${port.features[0].properties.country.code}"></span><br>
-    Country Name: <span th:text="${port.features[0].properties.country.name}"></span><br>
-    City Name: <span th:text="${port.features[0].properties.name}"></span><br>
-    Region Code: <span th:text="${port.features[0].properties.region.code}"></span><br>
-    Region Name: <span th:text="${port.features[0].properties.region.name}"></span><br>
-    Port status: <span th:text="${port.features[0].properties.status}"></span><br>
+    Country Code: <span th:text="${port.features[0]?.properties?.country?.code}"></span><br>
+    Country Name: <span th:text="${port.features[0]?.properties?.country?.name}"></span><br>
+    City Name: <span th:text="${port.features[0]?.properties?.name}"></span><br>
+    Region Code: <span th:text="${port.features[0]?.properties?.region?.code}"></span><br>
+    Region Name: <span th:text="${port.features[0]?.properties?.region?.name}"></span><br>
+    Port status: <span th:text="${port.features[0]?.properties?.status}"></span><br>
 </div>
 </body>
 </html>

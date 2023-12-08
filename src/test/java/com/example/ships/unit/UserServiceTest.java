@@ -42,7 +42,6 @@ class UserServiceTest {
 		Set<Role> roles = new HashSet<>();
 		roles.add(Role.ADMIN);
 
-
 		boolean result = user.isAdminRole(roles);
 
 		assertTrue(result);

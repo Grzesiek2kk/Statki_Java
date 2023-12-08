@@ -21,10 +21,14 @@ import java.util.Optional;
 @Service
 public class ShipService {
 
+    private final ShipRepository shipRepository;
+    private final UserService userService;
+
     @Autowired
-    private ShipRepository shipRepository;
-    @Autowired
-    private UserService userService;
+    public ShipService(ShipRepository shipRepository, UserService userService) {
+        this.shipRepository = shipRepository;
+        this.userService = userService;
+    }
 
     @Transactional
     public void saveShip(Ship newShip)
