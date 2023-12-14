@@ -1,5 +1,6 @@
 package com.example.ships.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
     @GetMapping("/")
+    @Operation(summary = "Strona główna", description = "przekieruj do strony głównej")
     public String index(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
@@ -58,6 +60,7 @@ public class HomeController {
     }
 
     @GetMapping("/admin")
+    @Operation(summary = "Panel admin", description = "Przekieruj do panelu administratora")
     public String admin(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");

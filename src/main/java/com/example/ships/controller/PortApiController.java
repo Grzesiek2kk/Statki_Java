@@ -6,6 +6,7 @@ import com.example.ships.service.PortApiService;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +41,7 @@ public class PortApiController
 
 
     @GetMapping("/portDetails/{port}")
+    @Operation(summary = "Port Macierzysty", description = "Informacje o porcie macierzystym")
     public String getInitialPortDetails(@PathVariable String port, Model model, RedirectAttributes redirectAttributes)
     {
         String apiEndpoint = "/port/code/" + port;

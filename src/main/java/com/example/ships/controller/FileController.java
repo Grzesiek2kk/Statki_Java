@@ -6,6 +6,7 @@ import com.example.ships.service.FileService;
 import com.example.ships.service.ShipService;
 import com.example.ships.service.UserService;
 import com.google.gson.JsonParseException;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,7 @@ public class FileController {
     }
 
     @PostMapping("/importShipJson")
+    @Operation(summary = "Import JSON", description = "Zaimportuj dane statków z pliku JSON")
     public String importToJsonFile(HttpServletRequest request,
                              RedirectAttributes redirectAttributes,
                              @RequestPart("fileShips") MultipartFile file,
@@ -133,6 +135,7 @@ public class FileController {
     }
 
     @PostMapping("/importShipXml")
+    @Operation(summary = "Import XML", description = "Zaimportuj dane statków z pliku XML")
     public String importShipXml(HttpServletRequest request,
                                 RedirectAttributes redirectAttributes,
                                 @RequestPart("fileShips") MultipartFile file,
@@ -180,6 +183,7 @@ public class FileController {
 
 
     @GetMapping("/exportXmlAllShip")
+    @Operation(summary = "Export XML", description = "Wyeksportuj dane statków do pliku XML")
     public String exportAll(RedirectAttributes redirectAttributes) throws IOException {
         List<Ship> ships = _shipService.getAllShips();
         _fileService.writeToXmlFile(ships,redirectAttributes);
@@ -187,6 +191,7 @@ public class FileController {
     }
 
     @GetMapping("/exportXmlOneShip/{id}")
+    @Operation(summary = "Export XML OneShip", description = "Wyeksportuj dane statku do pliku XML")
     public String exportOne(@PathVariable Long id,RedirectAttributes redirectAttributes) throws IOException {
         List <Ship> ships = new ArrayList<>();
         Optional<Ship> ship = _shipRepository.findById(id);
@@ -204,6 +209,7 @@ public class FileController {
 
     }
     @GetMapping("/exportJsonAllShips")
+    @Operation(summary = "Export JSON", description = "Wyeksportuj dane statków do pliku JSON")
     public String exportAllJson(RedirectAttributes redirectAttributes) throws IOException {
         List<Ship> ships = _shipService.getAllShips();
         _fileService.exportToJsonFile(ships,redirectAttributes);
@@ -211,6 +217,7 @@ public class FileController {
     }
 
     @GetMapping("/exportJsonOneShip/{id}")
+    @Operation(summary = "Export JSON OneShip", description = "Wyeksportuj dane statku do pliku JSON")
     public String exportOneJson(@PathVariable Long id,RedirectAttributes redirectAttributes) throws IOException {
         List <Ship> ships = new ArrayList<>();
         Optional<Ship> ship = _shipRepository.findById(id);

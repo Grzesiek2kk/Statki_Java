@@ -4,6 +4,7 @@ import com.example.ships.model.Role;
 import com.example.ships.service.UserService;
 import com.example.ships.model.User;
 import com.example.ships.util.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -31,11 +32,13 @@ public class UserController {
     }
 
     @GetMapping("/login")
+    @Operation(summary = "Do logowania", description = "Przekieruj do logowania")
     public String login() {
         return "login";
     }
 
     @GetMapping("/register")
+    @Operation(summary = "Do rejestracji", description = "Przekieruj do rejestracji")
     public String showRegistrationForm(Model model)
     {
         model.addAttribute("user", new User());
@@ -44,6 +47,7 @@ public class UserController {
 
 
     @PostMapping("/register")
+    @Operation(summary = "Rejestracja", description = "Obsłuż rejestrację")
     public String registerUser(@Valid User user, BindingResult bindingResult, @RequestParam String confirmPassword, Model model) {
         if (user.getUsername().length() < 4) {
             bindingResult.rejectValue("username", "error.username", "Nazwa użytkownika powinna mieć conajmniej 4 znaki");
@@ -80,6 +84,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Logowanie", description = "Obsłuż logowanie")
     public String loginUser(User user, Model model, HttpServletRequest request) {
         if (userService.isValidUser(user)) {
             User loggedInUser = userService.getUserByEmail(user.getEmail());
@@ -107,6 +112,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
+    @Operation(summary = "Wyloguj", description = "Wylogowanie")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
