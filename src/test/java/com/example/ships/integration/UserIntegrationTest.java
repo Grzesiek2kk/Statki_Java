@@ -33,12 +33,6 @@ class UserIntegrationTest {
 
     @Test
     void testRegisterAndLogin() {
-        User user = new User("TestUser2", "john2@example.com", "P@ssw0rd2");
-        Set<Role> roles = new HashSet<>();
-        roles.add(Role.USER);
-
-        userService.saveUser(user, roles);
-
         User loginUser = new User("TestUser2","john2@example.com", "P@ssw0rd2");
 
         Assertions.assertTrue(userService.isValidUser(loginUser));
@@ -56,14 +50,7 @@ class UserIntegrationTest {
 
     @Test
     void testAdminLogin() {
-        User adminUser = new User("AdminUser", "admin2@example.com", "AdminP@ssw0rd");
-        Set<Role> adminRoles = new HashSet<>();
-        adminRoles.add(Role.ADMIN);
-
-        userService.saveUser(adminUser, adminRoles);
-
-
-        User loginAdmin = new User("AdminUser", "admin2@example.com", "AdminP@ssw0rd");
+        User loginAdmin = new User("AdminUser", "admin@example.com", "AdminP@ssw0rd");
 
         Assertions.assertTrue(userService.isValidUser(loginAdmin));
 

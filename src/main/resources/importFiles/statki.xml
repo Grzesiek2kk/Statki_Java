@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<arrivalShips>
+    <ship>
+        <Bandera>Faroe Islands</Bandera>
+        <Dlugosc>79.9</Dlugosc>
+        <Agent>POSEIDON FRACHTCONTOR JUNGE Sp. z o.o.</Agent>
+        <Kod_portu>PLSWI</Kod_portu>
+        <Data_przybycia>02.01.2015</Data_przybycia>
+        <Godzina_przybycia>06:50:00</Godzina_przybycia>
+        <Kod_portu_przybycia>DKHUN</Kod_portu_przybycia>
+        <Nazwa_statku>SUNNMORE</Nazwa_statku>
+        <Pojemnosc_brutto>2706</Pojemnosc_brutto>
+        <Nabrzeze>Rozładunkowe Basen Atlantycki</Nabrzeze>
+    </ship>
+    <ship>
+        <Bandera>Bahamas</Bandera>
+        <Dlugosc>173.7</Dlugosc>
+        <Agent>Unity Line Limited Sp. z o.o. Oddział w Polsce</Agent>
+        <Kod_portu>PLSWI</Kod_portu>
+        <Data_przybycia>02.01.2015</Data_przybycia>
+        <Godzina_przybycia>19:55:00</Godzina_przybycia>
+        <Kod_portu_przybycia>SEYST</Kod_portu_przybycia>
+        <Nazwa_statku>SKANIA</Nazwa_statku>
+        <Pojemnosc_brutto>23933</Pojemnosc_brutto>
+        <Nabrzeze>Baza Promów Morskich Stanowisko Nr 2</Nabrzeze>
+    </ship>
+</arrivalShips>

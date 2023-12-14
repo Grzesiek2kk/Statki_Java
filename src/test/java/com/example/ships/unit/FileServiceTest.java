@@ -19,6 +19,7 @@ import org.mockito.Mockito;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import java.io.ByteArrayInputStream;
@@ -47,7 +48,7 @@ public class FileServiceTest {
     private BCryptPasswordEncoder passwordEncoder;
     private JwtUtil jwtUtil;
     private MultipartFile multipartFile;
-
+    private RedirectAttributes redirectAttributes;
 
     @BeforeEach
     void setUp() {
@@ -67,6 +68,7 @@ public class FileServiceTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
 
     }
 
@@ -120,6 +122,50 @@ public class FileServiceTest {
         Assertions.assertEquals(5,ships.size());
 
 
+    }
+
+    @Test
+    void testReadShipFromXml() throws IOException {
+        InputStream inputStreamXml = getClass().getClassLoader().getResourceAsStream("importFiles/statki.xml");
+        try {
+            when(multipartFile.getInputStream()).thenReturn(inputStreamXml);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        when(fileService.readShipFromXml(any())).thenCallRealMethod();
+
+        List<Ship> ships = fileService.readShipFromXml(multipartFile);
+
+        Assertions.assertEquals(2, ships.size());
+    }
+
+    @Test
+    void testWriteToXmlFile() throws IOException {
+
+        List<Ship> ships = new ArrayList<>();
+        ships.add(ship);
+        ships.add(ship);
+
+        when(fileService.writeToXmlFile(ships, redirectAttributes)).thenReturn(true);
+
+        boolean result = fileService.writeToXmlFile(ships, redirectAttributes);
+
+        verify(fileService, times(1)).writeToXmlFile(ships, redirectAttributes);
+
+        Assertions.assertTrue(result);
+    }
+
+    @Test
+    void testWriteXmlFileWhenFileIsEmpty() throws IOException {
+        List<Ship> ships = new ArrayList<>();
+
+        when(fileService.writeToXmlFile(ships, redirectAttributes)).thenReturn(false);
+
+        boolean result = fileService.writeToXmlFile(ships, redirectAttributes);
+
+        verify(fileService, times(1)).writeToXmlFile(ships, redirectAttributes);
+
+        Assertions.assertFalse(result);
     }
 
 }
