@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Statki</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <script th:src="@{/js/bootstrap.bundle.js}"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+  <header>
+    <div th:replace="~{/components/navbar::nav}"></div>
+  </header>
+
+  <main>
+    <div class="container-fluid my-5">
+      <div class="m-3">
+        <div class="d-flex justify-content-center">
+          <h1 class="m-3 text-info">Tabela przypłynięc statków</h1>
+        </div>
+          <div>
+              <div th:if="${successMessage}" class="success-message">
+                  <p th:text="${successMessage}"></p>
+              </div>
+              <div th:if="${errorMessage}" class="error-message">
+                  <p th:text="${errorMessage}"></p>
+              </div>
+          </div>
+      <table class="table table-dark table-striped table-bordered border-info border-3 rounded table-hover">
+        <thead>
+        <tr>
+          <th>Identyfikator</th>
+          <th>Nazwa</th>
+          <th>Bandera</th>
+          <th>Data przybycia</th>
+          <th>Godzina przybycia</th>
+          <th>Nadbrzeże</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ship : ${ships}">
+          <td th:text="${ship.id}"></td>
+          <td th:text="${ship.shipName}"></td>
+          <td th:text="${ship.flag}"></td>
+          <td th:text="${ship.arrivalDate}"></td>
+          <td th:text="${ship.arrivalTime}"></td>
+          <td th:text="${ship.mooringPlace}"></td>
+          <td>
+            <div th:if="${ship.user.getId() eq userId or isAdmin eq true}" class="btn-group">
+              <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-primary">Szczegóły</a>
+              <a th:href="@{'/deleteShip/' + ${ship.id}}" class="btn btn-danger">Usuń</a>
+              <a th:href="@{'/editShip/' + ${ship.id}}" class="btn btn-success">Edytuj</a>
+            </div>
+            <div th:if="${ship.user.getId() ne userId and isAdmin ne true}" class="btn-group">
+              <a th:href="@{'/showArrivalShips/' + ${ship.id}}" class="btn btn-primary">Szczegóły</a>
+            </div>
+
+            <div th:if="${session['user_id'] != null}">
+              <a th:href="@{'/exportJsonOneShip/' + ${ship.id}}" class="btn btn-primary">Wyeksportuj statek do pliku JSON</a>
+            </div>
+
+            <div class="btn-group">
+              <a th:href="@{'/portDetails/' + ${ship.initialPortCode}}" class="btn btn-primary">Port macierzysty</a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </main>
+
+  <footer>
+    <div th:replace="~{/components/footer::ft}"></div>
+  </footer>
+
+</body>
+</html>

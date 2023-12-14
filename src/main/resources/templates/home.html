@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<th:block th:import="com.example.ships.model.Role"></th:block>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    /*]]>*/
+  </script>
+</head>
+<body>
+
+<nav>
+  <a th:href="@{/}"><span class="home">Home</span></a>
+  <a th:href="@{/home2}"><span class="home">Home v2</span></a>
+  <a th:href="@{/test}"><span class="home">Test Site</span></a>
+  <div th:if="${session['username'] != null}" class="welcome-message">
+    <div class="user-dropdown">
+      <span th:text="'Witaj ' + ${username} + '!'"></span>
+      <div class="dropdown-content">
+        <a th:href="@{/profile}">Profil</a>
+        <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
+        <a th:href="@{/logout}">Wyloguj</a>
+      </div>
+    </div>
+  </div>
+  <div th:if="${session['username'] == null}" class="welcome-message">
+    <div class="user-dropdown">
+      <span th:text="Gość"></span>
+      <div class="dropdown-content">
+        <a th:href="@{/register}">Rejestracja</a>
+        <a th:href="@{/login}">Zaloguj</a>
+      </div>
+    </div>
+  </div>
+
+</nav>
+<div class="container">
+  <div>
+    <div th:if="${successMessage}" class="success-message">
+      <p th:text="${successMessage}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="error-message">
+      <p th:text="${errorMessage}"></p>
+    </div>
+  </div>
+
+  <div class="button">
+    <a th:if="${session['username'] != null}" th:href="@{/addShip}">
+      <button>Dodaj przypłynięcie statku do portu</button>
+    </a>
+  </div>
+
+  <div class="button">
+    <a th:href="@{/showArrivalShips}">
+      <button>Wyswietl przypłynięcia statków do portu w Świnoujściu</button>
+    </a>
+  </div>
+
+  <div class="button">
+    <a th:href="@{/showArrivalShips}">
+      <button>Wyswietl przypłynięcia statków do portu w Świnoujściu</button>
+    </a>
+  </div>
+
+  <div class="button" th:if="${session['username'] != null}">
+    <a th:href="@{/importShipJsonForm}">
+      <button>Importuj przypłynięcia statków z pliku JSON</button>
+    </a>
+  </div>
+
+  <div class="button" th:if="${session['username'] != null}">
+    <a th:href="@{/importShipXmlForm}">
+      <button>Importuj przypłynięcia statków z pliku XML</button>
+    </a>
+  </div>
+
+  <div class="button" th:if="${session['username'] != null}">
+    <a th:href="@{/exportXmlAllShip}">
+      <button>Eksportuj przypłynięcia statków do pliku XML</button>
+    </a>
+  </div>
+
+  <div class="button" th:if="${session['username'] != null}">
+    <a th:href="@{/exportXmlOneShip}">
+      <button>Eksportuj przypłynięcie jednego statku do pliku XML</button>
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>

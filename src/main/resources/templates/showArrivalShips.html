@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista przypłynięć statków do portu w Świnoujściu</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav>
+    <a th:href="@{/}"><span class="home">Home</span></a>
+    <div th:if="${session['username'] != null}" class="welcome-message">
+        <div class="user-dropdown">
+            <span th:text="'Witaj ' + ${username} + '!'"></span>
+            <div class="dropdown-content">
+                <a th:href="@{/logout}">Wyloguj</a>
+                <a th:href="@{/profile}">Profil</a>
+                <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${session['username'] == null}" class="welcome-message">
+        <div class="user-dropdown">
+            <span th:text="Gość"></span>
+            <div class="dropdown-content">
+                <a th:href="@{/register}">Rejestracja</a>
+                <a th:href="@{/login}">Zaloguj</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h1>Lista przypłynięć statków do portu w Świnoujściu</h1>
+    <div>
+        <div th:if="${successMessage}" class="success-message">
+            <p th:text="${successMessage}"></p>
+        </div>
+        <div th:if="${errorMessage}" class="error-message">
+            <p th:text="${errorMessage}"></p>
+        </div>
+    </div>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Identyfikator</th>
+                <th>Nazwa</th>
+                <th>Bandera</th>
+                <th>Data przybycia</th>
+                <th>Godzina przybycia</th>
+                <th>Nadbrzeże</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ship : ${ships}">
+                <td th:text="${ship.id}"></td>
+                <td th:text="${ship.shipName}"></td>
+                <td th:text="${ship.flag}"></td>
+                <td th:text="${ship.arrivalDate}"></td>
+                <td th:text="${ship.arrivalTime}"></td>
+                <td th:text="${ship.mooringPlace}"></td>
+                <td><a th:href="@{'/showArrivalShips/' + ${ship.id}}"><button>Szczegóły</button></a></td>
+                <td><a th:href="@{'/portDetails/' + ${ship.initialPortCode}}" class="btn btn-primary">Port macierzysty</a></td>
+                <td th:if="${ship.user.getId() eq userId or isAdmin eq true}">
+                    <a th:href="@{'/deleteShip/' + ${ship.id}}"><button>Usuń</button></a>
+                    <a th:href="@{'/editShip/' + ${ship.id}}"><button>Edytuj</button></a>
+                </td>
+                <td th:if="${session['user_id'] != null}">
+                    <a th:href="@{'/exportXmlOneShip/' + ${ship.id}}" class="btn btn-primary">Wyeksportuj statek</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

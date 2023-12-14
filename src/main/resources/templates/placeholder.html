@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Placeholder</title>
+</head>
+<body>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<header>
+    <div th:replace="~{/components/navbar::nav}"></div>
+</header>
+
+<main>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-info bg-warning border-info h-100">
+            <div class="card-header">
+                What are you looking for here?
+            </div>
+            <img th:src="@{/img/placeholder.PNG}" class="card-img-top border-info border-3 rounded-3 p-3" alt="placeholder-img"/>
+            <div class="card-body">
+                <h5 class="card-title">Witaj wędrowcze!</h5>
+                <p class="card-text">
+                    Ta strona stanowi placeholder dla niezaimplementowanych lub nie gotowych elementów aplikacji.
+                </p>
+
+                <footer>
+                    <a th:href="@{/}"
+                    ><button type="button" class="btn btn-primary">
+                        Wróć na Domu
+                    </button></a>
+                </footer>
+            </div>
+        </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card bg-info text-warning border-warning h-100">
+                    <div class="card-header">
+                        Monolog Skryby
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p class="lead">Jak to jest być skrybą, dobrze?</p>
+                            <p class="lead">A, wie pan, moim zdaniem to nie ma tak, że dobrze, albo że niedobrze. Gdybym miał powiedzieć, co cenię w życiu najbardziej, powiedziałbym, że ludzi. Ludzi, którzy podali mi pomocną dłoń, kiedy sobie nie radziłem, kiedy byłem sam, i co ciekawe, to właśnie przypadkowe spotkania wpływają na nasze życie. Chodzi o to, że kiedy wyznaje się pewne wartości, nawet pozornie uniwersalne, bywa, że nie znajduje się zrozumienia, które by tak rzec, które pomaga się nam rozwijać. Ja miałem szczęście, by tak rzec, ponieważ je znalazłem, i dziękuję życiu! Dziękuję mu, życie to śpiew, życie to taniec, życie to miłość! Wielu ludzi pyta mnie o to samo: ale jak ty to robisz, skąd czerpiesz tę radość? A ja odpowiadam, że to proste! To umiłowanie życia. To właśnie ono sprawia, że dzisiaj na przykład buduję maszyny, a jutro – kto wie? Dlaczego by nie – oddam się pracy społecznej i będę, ot, choćby, sadzić... m— m-marchew...</p>
+                            <br>
+                            <footer class="blockquote-footer text-white">Otis ~ <cite title="Source Title">Asterix i Obelix - Misja Kleopatra ~ 2002</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div th:replace="~{/components/footer::ft}"></div>
+</footer>
+</body>
+</html>
