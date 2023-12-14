@@ -2,6 +2,7 @@ package com.example.ships.controller;
 
 import com.example.ships.adapter.LocalDateAdapter;
 import com.example.ships.adapter.LocalTimeAdapter;
+import com.example.ships.service.PortApiService;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
@@ -22,24 +23,21 @@ import java.util.Map;
 public class PortApiController
 {
     private final WebClient webClient;
-    Gson gson = new GsonBuilder()
+    private final PortApiService portApiService;
+
+    Gson gson;
+
+
+    public PortApiController(PortApiService portApiService)
+    {
+        this.portApiService = portApiService;
+        this.webClient = WebClient.builder().baseUrl("https://port-api.com").build();
+        this.gson = new GsonBuilder()
             .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
             .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter())
             .create();
-
-    public PortApiController() {
-        this.webClient = WebClient.builder().baseUrl("https://port-api.com").build();
     }
 
-    public Map<String, Object> convertStringToMap(String jsonString) {
-        Gson gson = new Gson();
-        try {
-            return gson.fromJson(jsonString, new TypeToken<Map<String, Object>>(){}.getType());
-        } catch (JsonSyntaxException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     @GetMapping("/portDetails/{port}")
     public String getInitialPortDetails(@PathVariable String port, Model model, RedirectAttributes redirectAttributes)
@@ -54,7 +52,7 @@ public class PortApiController
                     .bodyToMono(String.class)
                     .block();
 
-            Map<String, Object> data = convertStringToMap(apiResponse);
+            Map<String, Object> data = portApiService.convertStringToMap(apiResponse);
             model.addAttribute("port",data);
 
         } catch (WebClientResponseException ex) {

@@ -56,6 +56,11 @@ public class FileService
 
     public List<Ship> filterNull(List<Ship> ships)
     {
+        for(Ship s: ships)
+        {
+            System.out.println(s);
+        }
+
         List<Ship> filteredShips = ships.stream()
                 .filter(ship -> ship != null && ship.getArrivalDate() != null && ship.getArrivalTime() != null)
                 .collect(Collectors.toList());
