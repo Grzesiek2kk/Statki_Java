@@ -48,7 +48,8 @@ public class FileService
                 .registerTypeAdapter(LocalTime.class, new LocalTimeAdapter())
                 .create();
 
-        try (Reader reader = new InputStreamReader(file.getInputStream())) {
+        try (Reader reader = new InputStreamReader(file.getInputStream()))
+        {
             List<Ship> ships = gson.fromJson(reader, new TypeToken<List<Ship>>() {}.getType());
             return ships;
         }

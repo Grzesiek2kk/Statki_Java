@@ -1,0 +1,62 @@
+[
+  {
+    "Kod portu": "PLSWI",
+    "Data przybycia": "01.01.2015",
+    "Godzina przybycia": "20:30:00",
+    "Kod portu, z którego jednostka przypłynęła": "SEYST",
+    "Nazwa statku": "SKANIA",
+    "Bandera": "Bahamas",
+    "Pojemność brutto": 23933,
+    "Długość": 173.7,
+    "Agent": "Unity Line Limited Sp. z o.o. Oddział w Polsce",
+    "Nabrzeże (miejsce zacumowania)": "Baza Promów Morskich Stanowisko Nr 2"
+  },
+  {
+    "Kod portu": "PLSWI",
+    "Data przybycia": "01.01.2015",
+    "Godzina przybycia": "19:48:00",
+    "Kod portu, z którego jednostka przypłynęła": "LRUCN",
+    "Nazwa statku": "STAR ATHENA",
+    "Bandera": "Norway",
+    "Pojemność brutto": 32839,
+    "Długość": 189.99,
+    "Agent": "Inchcape Shipping Services Poland SP. Z O. O.",
+    "Nabrzeże (miejsce zacumowania)": "Chemików"
+  },
+  {
+    "Kod portu": "PLSWI",
+    "Data przybycia": "01.01.2015",
+    "Godzina przybycia": "22:20:00",
+    "Kod portu, z którego jednostka przypłynęła": "NLVLI",
+    "Nazwa statku": "ALLEGRETTO",
+    "Bandera": "Antigua and Barbuda",
+    "Pojemność brutto": 3128,
+    "Długość": 89.98,
+    "Agent": "Euro Forwarding and Shipping Agency Sp. z o.o.",
+    "Nabrzeże (miejsce zacumowania)": "Rozładunkowe Basen Atlantycki"
+  },
+  {
+    "Kod portu": "PLSWI",
+    "Data przybycia": "02.01.2015",
+    "Godzina przybycia": "06:50:00",
+    "Kod portu, z którego jednostka przypłynęła": "SEYST",
+    "Nazwa statku": "POLONIA",
+    "Bandera": "Bahamas",
+    "Pojemność brutto": 29875,
+    "Długość": 169.9,
+    "Agent": "Unity Line Limited Sp. z o.o. Oddział w Polsce",
+    "Nabrzeże (miejsce zacumowania)": "Baza Promów Morskich Stanowisko Nr 3"
+  },
+  {
+    "Kod portu": "PLSWI",
+    "Data przybycia": "02.01.2015",
+    "Godzina przybycia": "05:45:00",
+    "Kod portu, z którego jednostka przypłynęła": "DEBRE",
+    "Nazwa statku": "GERHARD G",
+    "Bandera": "Antigua and Barbuda",
+    "Pojemność brutto": 4255,
+    "Długość": 114.4,
+    "Agent": "BALTIC SHIPPING AGENCY Ltd. Szczecin",
+    "Nabrzeże (miejsce zacumowania)": "Portowców-Pirs"
+  }
+]
