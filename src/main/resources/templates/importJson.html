@@ -2,54 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-    <title>Importowanie z pliku JSON przypłynięć statków do portu w Śwonoujściu</title>
+    <title>Importowanie JSON</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
+
 <body>
-<nav>
-    <a th:href="@{/}"><span class="home">Home</span></a>
-    <div th:if="${session['username'] != null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="'Witaj ' + ${username} + '!'"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/profile}">Profil</a>
-                <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
-                <a th:href="@{/logout}">Wyloguj</a>
-            </div>
-        </div>
-    </div>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
-    <div th:if="${session['username'] == null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="Gość"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/register}">Rejestracja</a>
-                <a th:href="@{/login}">Zaloguj</a>
-            </div>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <h1>Importowanie z pliku JSON</h1>
-
-    <div th:if="${successMessage}" class="success-message">
-        <p th:text="${successMessage}"></p>
-    </div>
-    <div th:if="${errorMessage}" class="error-message">
-        <p th:text="${errorMessage}"></p>
-    </div>
-
-    <form method="post" enctype="multipart/form-data" action="/importShipJson" >
-        <div>
-            <label for="fileShips">Plik JSON do importu</label>
-            <input type="file" id="fileShips" name="fileShips" required>
-        </div>
+<header>
+    <div th:replace="~{/components/navbar::nav}"></div>
+</header>
+<main>
+    <div class="container my-5">
 
         <div>
-            <button type="submit">Importuj</button>
-            <button type="reset">Wyczyść</button>
+            <div th:if="${successMessage}" class="success-message">
+                <div class="card text-white bg-success mb-3 border-dark" style="max-width: 18rem;">
+                    <div class="card-body">
+                        <p th:text="${successMessage}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${errorMessage}" class="error-message">
+                <div class="card text-white bg-warning mb-3 border-dark" style="max-width: 18rem;">
+                    <div class="card-body"
+                    <p th:text="${errorMessage}"></p>
+                </div>
+            </div>
         </div>
-    </form>
-</div>
+
+        <div class="d-flex justify-content-center">
+            <h1 class="m-2 text-info">Importowanie z pliku XML</h1>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" action="/importShipJson" >
+            <div class="my-3">
+                <label for="fileShips" class="form-label">Plik JSON do importu</label>
+                <input type="file" id="fileShips" name="fileShips" required>
+            </div>
+
+            <div class="d-flex justify-content-center my-3">
+                <button type="submit" class="btn btn-info mx-2">Importuj</button>
+                <button type="reset" class="btn btn-danger mx-2">Wyczyść</button>
+            </div>
+        </form>
+    </div>
+</main>
+<footer>
+    <div th:replace="~{/components/footer::ft}"></div>
+</footer>
 </body>
 </html>

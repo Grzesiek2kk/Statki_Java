@@ -20,23 +20,33 @@
     </header>
 
     <main>
-        <div class="container">
-            <h1>Szczegóły przypłynięcia statku do portu</h1>
-
-            <p>ID: <span th:text="${ship.id}"></span></p>
-            <p>Nazwa: <span th:text="${ship.shipName}"></span></p>
-            <p>Data przybycia: <span th:text="${ship.arrivalDate}"></span></p>
-            <p>Godzina przybycia: <span th:text="${ship.arrivalTime}"></span></p>
-            <p>Kod portu, z którego przypłynął: <span th:text="${ship.initialPortCode}"></span></p>
-            <p>Bandera: <span th:text="${ship.flag}"></span></p>
-            <p>Pojemoność brutto: <span th:text="${ship.grossCapacity}"></span></p>
-            <p>Długość: <span th:text="${ship.length}"></span></p>
-            <p>Agent: <span th:text="${ship.agent}"></span></p>
-            <p>Nadbrzeże: <span th:text="${ship.mooringPlace}"></span></p>
-
-            <div th:if="${ship.user.getId() eq userId or isAdmin eq true}">
-                <a th:href="@{'/deleteShip/' + ${ship.id}}"><button>Usuń</button></a>
-                <a th:href="@{'/editShip/' + ${ship.id}}"><button>Edytuj</button></a>
+        <div class="container my-3">
+            <div class="card text-light bg-info m-5" style="width:auto">
+                <div class="card-header">
+                    <div class="d-flex justify-content-center">
+                        Szczegóły przypłynięcia statku do portu
+                    </div>
+                </div>
+                <div class="list-group list-group-flush text-dark">
+                    <li class="list-group-item"><p>ID: <span th:text="${ship.id}"></span></p></li>
+                    <li class="list-group-item"><p>Nazwa: <span th:text="${ship.shipName}"></span></p></li>
+                    <li class="list-group-item"><p>Data przybycia: <span th:text="${ship.arrivalDate}"></span></p></li>
+                    <li class="list-group-item"><p>Godzina przybycia: <span th:text="${ship.arrivalTime}"></span></p></li>
+                    <li class="list-group-item"><p>Kod portu, z którego przypłynął: <span th:text="${ship.initialPortCode}"></span></p></li>
+                    <li class="list-group-item"><p>Bandera: <span th:text="${ship.flag}"></span></p></li>
+                    <li class="list-group-item"><p>Pojemoność brutto: <span th:text="${ship.grossCapacity}"></span></p></li>
+                    <li class="list-group-item"><p>Długość: <span th:text="${ship.length}"></span></p></li>
+                    <li class="list-group-item"><p>Agent: <span th:text="${ship.agent}"></span></p></li>
+                    <li class="list-group-item"><p>Nadbrzeże: <span th:text="${ship.mooringPlace}"></span></p></li>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-center">
+                    <div th:if="${ship.user.getId() eq userId or isAdmin eq true}">
+                        <a th:href="@{'/deleteShip/' + ${ship.id}}"><button class="btn btn-danger mx-2 border-dark">Usuń</button></a>
+                        <a th:href="@{'/editShip/' + ${ship.id}}"><button class="btn btn-info mx-2 border-dark">Edytuj</button></a>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

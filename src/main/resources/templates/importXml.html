@@ -2,41 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-    <title>Importowanie z pliku XML przypłynięć statków do portu w Śwonoujściu</title>
+    <title>Importowanie XML</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 </head>
+
 <body>
-<nav>
-    <a th:href="@{/}"><span class="home">Home</span></a>
-    <div th:if="${session['username'] != null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="'Witaj ' + ${username} + '!'"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/profile}">Profil</a>
-                <a th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
-                <a th:href="@{/logout}">Wyloguj</a>
+<script th:src="@{/js/bootstrap.js}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+<header>
+    <div th:replace="~{/components/navbar::nav}"></div>
+</header>
+
+<main>
+<div class="container my-5">
+
+    <div>
+        <div th:if="${successMessage}" class="success-message">
+            <div class="card text-white bg-success mb-3 border-dark" style="max-width: 18rem;">
+                <div class="card-body">
+                    <p th:text="${successMessage}"></p>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${errorMessage}" class="error-message">
+            <div class="card text-white bg-warning mb-3 border-dark" style="max-width: 18rem;">
+                <div class="card-body"
+                <p th:text="${errorMessage}"></p>
             </div>
         </div>
     </div>
-
-    <div th:if="${session['username'] == null}" class="welcome-message">
-        <div class="user-dropdown">
-            <span th:text="Gość"></span>
-            <div class="dropdown-content">
-                <a th:href="@{/register}">Rejestracja</a>
-                <a th:href="@{/login}">Zaloguj</a>
-            </div>
-        </div>
     </div>
-</nav>
-<div class="container">
-    <h1>Importowanie z pliku XML</h1>
 
-    <div th:if="${successMessage}" class="success-message">
-        <p th:text="${successMessage}"></p>
-    </div>
-    <div th:if="${errorMessage}" class="error-message">
-        <p th:text="${errorMessage}"></p>
+    <div class="d-flex justify-content-center">
+        <h1 class="m-2 text-info">Importowanie z pliku XML</h1>
     </div>
 
     <form method="post" enctype="multipart/form-data" action="/importShipXml" >
@@ -50,6 +54,11 @@
             <button type="reset">Wyczyść</button>
         </div>
     </form>
-</div>
+</main>
+
+<footer>
+    <div th:replace="~{/components/footer::ft}"></div>
+</footer>
+
 </body>
 </html>

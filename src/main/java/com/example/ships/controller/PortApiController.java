@@ -61,13 +61,13 @@ public class PortApiController
 
             if (statusCode == HttpStatus.NOT_FOUND) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Kod portu nie został odnaleziony");
-                return "redirect:/showArrivalShips";
+                return "redirect:/show_all_ships";
             } else if (statusCode.is5xxServerError()) {
                 redirectAttributes.addFlashAttribute("errorMessage", "Blad serwera");
-                return "redirect:/showArrivalShips";
+                return "redirect:/show_all_ships";
             } else {
                 redirectAttributes.addFlashAttribute("errorMessage", "Wystapil bład");
-                return "redirect:/showArrivalShips";
+                return "redirect:/show_all_ships";
             }
         }
 

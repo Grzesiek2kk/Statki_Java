@@ -35,9 +35,6 @@
                   <a class="dropdown-item" aria-current="page" th:href="@{/show_all_ships}">Tabela Przypłynięć</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" aria-current="page" th:href="@{/addShip}">Dodaj Statek</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" aria-current="page" th:href="@{/placeholder}">Zaimportuj listę statków z pliku JSON</a>
-                  <a class="dropdown-item" aria-current="page" th:href="@{/exportJsonAllShips}">Eksportuj listę statków do pliku JSON</a>
                 </div>
               </div>
               <div th:if="${session['username'] == null}">
@@ -60,18 +57,18 @@
               </div>
             </li>
 
-            <li class="nav-item dropdown active">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Debug
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" aria-current="page" th:href="@{/old_home}">Old Home</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" aria-current="page" th:href="@{/showArrivalShips}">Statki_Old</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" th:href="@{/placeholder}">Placeholder</a>
-              </div>
-            </li>
+<!--            <li class="nav-item dropdown active">-->
+<!--              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                Debug-->
+<!--              </a>-->
+<!--              <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                <a class="dropdown-item" aria-current="page" th:href="@{/old_home}">Old Home</a>-->
+<!--                <div class="dropdown-divider"></div>-->
+<!--                <a class="dropdown-item" aria-current="page" th:href="@{/showArrivalShips}">Statki_Old</a>-->
+<!--                <div class="dropdown-divider"></div>-->
+<!--                <a class="dropdown-item" th:href="@{/placeholder}">Placeholder</a>-->
+<!--              </div>-->
+<!--            </li>-->
           </ul>
 
           <div th:if="${session['username'] != null}">
@@ -82,9 +79,9 @@
                 </button>
                 <ul class="dropdown-menu">
                   <a class="dropdown-item" th:href="@{/profile}">Profil</a>
-                  <div class="dropdown-divider"></div>
+                  <div th:if="${isAdmin}"class="dropdown-divider"></div>
                   <a class="dropdown-item" th:if="${isAdmin}" th:href="@{/admin}">Panel Administracyjny</a>
-                  <div class="dropdown-divider"></div>
+                  <div th:if="${isAdmin}"class="dropdown-divider"></div>
                   <a class="dropdown-item" th:href="@{/logout}">Wyloguj</a>
                 </ul>
               </div>

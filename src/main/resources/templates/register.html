@@ -22,6 +22,24 @@
     <main>
         <div class="container my-5">
 
+            <div>
+                <div th:if="${successMessage}" class="success-message">
+                    <div class="card text-white bg-success mb-3 border-dark" style="max-width: 18rem;">
+                        <div class="card-body">
+                            <p th:text="${successMessage}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${errorMessage}" class="error-message">
+                    <div class="card text-white bg-danger mb-3 border-dark" style="max-width: 18rem;">
+                        <div class="card-body"
+                        <p th:text="${errorMessage}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             <div class="text-cdnter" my-3>
                 <h1>Formularz rejestracji</h1>
             </div>
@@ -57,10 +75,12 @@
                             <small id="passwordHelp" class="form-text text-muted">Wymagane: 1 Duża litera, 1 Mała litera, 1 Cyfra i 1 Znak specjalny. Hasło powinno mieć min 8 znaków całkowicie.</small>
                         </div>
                     </div>
-
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-info mx-1">Zarejestruj</button>
-                        <button type="reset" class="btn btn-danger" mx-1>Resetuj</button>
+                        <a class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" th:href="@{/login}">Masz już konto? - Zaloguj sie</a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-info mx-1 my-2">Zarejestruj</button>
+                        <button type="reset" class="btn btn-danger mx-1 my-2" mx-1>Resetuj</button>
                     </div>
                 </form>
             </div>
