@@ -12,9 +12,20 @@
   <header>
     <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark" style="background-color: #2a5470;">
       <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}">
-          <img th:src="@{/img/logo_v3-2.png}" alt="logo" width="50" height="50" class="d-inline-block align-text-middle">
-          Port Świnoujście
+        <a class="navbar-brand h-auto" th:href="@{/}">
+          <div class="d-flex justify-content-start">
+            <div>
+              <img th:src="@{/img/logo_v3-2.png}" alt="logo" width="50px" height="50px">
+            </div>
+              <div class="mx-1">
+                <div class="text-info text-center" style="font-size: 20px">
+                  Maritime Tides
+                </div>
+                <div class="text-white text-center" style="font-size: 10px">
+                  Port Świnoujście
+                </div>
+              </div>
+            </div>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
